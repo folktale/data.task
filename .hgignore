@@ -1,0 +1,7 @@
+syntax: glob
+*.orig
+node_modules
+lib
+dist
+npm-debug.log
+docs/literate
