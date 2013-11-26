@@ -7,13 +7,46 @@ monads.future
 [![experimental](http://hughsk.github.io/stability-badges/dist/experimental.svg)](http://github.com/hughsk/stability-badges)
 
 
-A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.
+The `Future(a, b)` monad represents values that depend on time. This allows one
+to model time-based effects explicitly, such that one can have full knowledge
+of when they're dealing with delayed computations, latency, or anything that
+can not be computed immediately.
+
+A common use for this monad is to replace the usual
+[Continuation-Passing Style][CPS] form of programming, in order to be able to
+compose and sequence time-dependent effects using the generic and powerful
+monadic operations.
 
 
 ## Example
 
 ```js
-( ... )
+var Future = require('monads.future')
+
+function get(url) {
+  return Future.defer(function(resolve, reject) {
+    var request = new XMLHttpRequest()
+    request.onload = function() {
+      if (!/2\d\d/.test(this.status))  reject(this.responseText)
+      else                             resolve(this.responseText)
+    }
+    request.open("get", url, true)
+    request.send()
+  })
+}
+
+var t1 = get('/something')
+var t2 = get('/other')
+
+var t3 = t1.map(function(a) {
+           t2.map(function(b) {
+             return a + b
+           })
+         })
+
+t3.chain(function(a) {
+  console.log(a)
+})
 ```
 
 
@@ -104,3 +137,4 @@ Released under the [MIT licence](https://github.com/folktale/monads.future/blob/
 [Node.js]: http://nodejs.org/
 [es5-shim]: https://github.com/kriskowal/es5-shim
 [docs]: http://folktale.github.io/monads.future
+[CPS]: http://matt.might.net/articles/by-example-continuation-passing-style/
