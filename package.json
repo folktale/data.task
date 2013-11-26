@@ -1,6 +1,6 @@
 {
   "name": "monads.future",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
   "scripts": {
