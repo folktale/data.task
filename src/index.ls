@@ -94,8 +94,7 @@ id = (a) -> a
 #
 # Thrown when trying to extract the value of a rejected future.
 class RejectedFutureExtractionError extends TypeError
-  ->
-    TypeError.call this, "Can't extract the value of a rejected future."
+  -> super "Can't extract the value of a rejected future."
 
 
 
