@@ -220,35 +220,6 @@ class Future
 
   # ### Section: Extracting and Recovering #############################
 
-  # #### Function: get
-  #
-  # Extracts the successful value out of the Future monad, if it
-  # exists. Otherwise throws a `TypeError`.
-  #  
-  # + see: get-or-else — A getter that can handle failures.
-  # + see: merge — Returns the convergence of both values.
-  # + type: (@Future(a, b), *throws) => Unit -> b
-  # + throws: TypeError — if the monad doesn't have a successful value.
-  get: ->
-    | @is-resolved => @value
-    | @is-rejected => throw new RejectedFutureExtractionError
-    | @is-pending  => @fork do
-                            * (a) -> throw new RejectedFutureExtractionError
-                            * id
-
-  # #### Function: get-or-else
-  #
-  # Extracts the successful value out of the Future monad. If the monad
-  # doesn't have a successful value, returns the given default.
-  #
-  # + type: (@Future(a, b)) => b -> b
-  get-or-else: (b) ->
-    | @is-resolved => @value
-    | @is-rejected => b
-    | @is-pending  => @fork do
-                            * (a) -> b
-                            * id
-
   # #### Function: or-else
   #
   # Transforms a failure value into a new Future monad. Does nothing if
@@ -259,16 +230,6 @@ class Future
     new Future (reject, resolve) ~> @fork do
                                           * (a) -> (f a).fork reject, resolve
                                           * (b) -> resolve b
-
-  # #### Function: merge
-  #
-  # Returns the value of whichever side of the disjunction that is
-  # present.
-  #
-  # + type: (@Future(a, a)) => Unit -> a
-  merge: ->
-    | @is-pending => @fork id, id
-    | otherwise   => @value
 
   # ### Section: Folds and Extended Transformations ####################
 
