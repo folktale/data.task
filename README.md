@@ -24,7 +24,7 @@ monadic operations.
 var Future = require('monads.future')
 
 function get(url) {
-  return Future.defer(function(resolve, reject) {
+  return new Future(function(resolve, reject) {
     var request = new XMLHttpRequest()
     request.onload = function() {
       if (!/2\d\d/.test(this.status))  reject(this.responseText)
