@@ -4,7 +4,7 @@ The Future monad
 [![Build Status](https://secure.travis-ci.org/folktale/data.future.png?branch=master)](https://travis-ci.org/folktale/data.future)
 [![NPM version](https://badge.fury.io/js/data.future.png)](http://badge.fury.io/js/data.future)
 [![Dependencies Status](https://david-dm.org/folktale/data.future.png)](https://david-dm.org/folktale/data.future)
-[![experimental](http://hughsk.github.io/stability-badges/dist/experimental.svg)](http://github.com/hughsk/stability-badges)
+[![stable](http://hughsk.github.io/stability-badges/dist/stable.svg)](http://github.com/hughsk/stability-badges)
 
 
 The `Future(a, b)` monad represents values that depend on time. This allows one
