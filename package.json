@@ -1,5 +1,5 @@
 {
-  "name": "monads.future",
+  "name": "data.future",
   "version": "0.2.0",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
@@ -9,21 +9,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/folktale/monads.future"
+    "url": "https://github.com/folktale/data.future"
   },
   "keywords": [
     "fantasy-land",
-    "folktale"
+    "folktale",
+    "monads",
+    "algebraic",
+    "promises",
+    "futures",
+    "asynchronous"
   ],
   "author": "Quildreen Motta",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/folktale/monads.future/issues"
+    "url": "https://github.com/folktale/data.future/issues"
   },
   "dependencies": {},
   "devDependencies": {
-    "browserify": "~2.35.4",
-    "groc": "git://github.com/killdream/groc#patch-livescript",
+    "browserify": "git://github.com/robotlolita/node-browserify",
+    "groc": "git://github.com/robotlolita/groc#patch-livescript",
     "LiveScript": "~1.2.0",
     "hifive-tap": "~0.1.0",
     "hifive": "~0.1.0",

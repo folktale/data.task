@@ -1,4 +1,4 @@
-# # monads.future
+# # The Future monad
 #
 # The `Future(a, b)` monad represents values that depend on time. This
 # allows one to model time-based effects explicitly, such that one can

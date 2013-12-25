@@ -12,16 +12,16 @@ lib: src/*.ls
 dist:
 	mkdir -p dist
 
-dist/monads.future.umd.js: compile dist
+dist/data.future.umd.js: compile dist
 	$(browserify) lib/index.js --standalone Future > $@
 
-dist/monads.future.umd.min.js: dist/monads.future.umd.js
+dist/data.future.umd.min.js: dist/data.future.umd.js
 	$(uglify) --mangle - < $^ > $@
 
 # ----------------------------------------------------------------------
-bundle: dist/monads.future.umd.js
+bundle: dist/data.future.umd.js
 
-minify: dist/monads.future.umd.min.js
+minify: dist/data.future.umd.min.js
 
 compile: lib
 
@@ -37,14 +37,14 @@ test:
 	$(lsc) test/tap.ls
 
 package: compile documentation bundle minify
-	mkdir -p dist/monads.future-$(VERSION)
-	cp -r docs/literate dist/monads.future-$(VERSION)/docs
-	cp -r lib dist/monads.future-$(VERSION)
-	cp dist/*.js dist/monads.future-$(VERSION)
-	cp package.json dist/monads.future-$(VERSION)
-	cp README.md dist/monads.future-$(VERSION)
-	cp LICENCE dist/monads.future-$(VERSION)
-	cd dist && tar -czf monads.future-$(VERSION).tar.gz monads.future-$(VERSION)
+	mkdir -p dist/data.future-$(VERSION)
+	cp -r docs/literate dist/data.future-$(VERSION)/docs
+	cp -r lib dist/data.future-$(VERSION)
+	cp dist/*.js dist/data.future-$(VERSION)
+	cp package.json dist/data.future-$(VERSION)
+	cp README.md dist/data.future-$(VERSION)
+	cp LICENCE dist/data.future-$(VERSION)
+	cd dist && tar -czf data.future-$(VERSION).tar.gz data.future-$(VERSION)
 
 publish: clean
 	npm install

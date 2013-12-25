@@ -1,9 +1,9 @@
-monads.future
-=============
+The Future monad
+================
 
-[![Build Status](https://secure.travis-ci.org/folktale/monads.future.png?branch=master)](https://travis-ci.org/folktale/monads.future)
-[![NPM version](https://badge.fury.io/js/monads.future.png)](http://badge.fury.io/js/monads.future)
-[![Dependencies Status](https://david-dm.org/folktale/monads.future.png)](https://david-dm.org/folktale/monads.future)
+[![Build Status](https://secure.travis-ci.org/folktale/data.future.png?branch=master)](https://travis-ci.org/folktale/data.future)
+[![NPM version](https://badge.fury.io/js/data.future.png)](http://badge.fury.io/js/data.future)
+[![Dependencies Status](https://david-dm.org/folktale/data.future.png)](https://david-dm.org/folktale/data.future)
 [![experimental](http://hughsk.github.io/stability-badges/dist/experimental.svg)](http://github.com/hughsk/stability-badges)
 
 
@@ -21,7 +21,7 @@ monadic operations.
 ## Example
 
 ```js
-var Future = require('monads.future')
+var Future = require('data.future')
 
 function get(url) {
   return new Future(function(resolve, reject) {
@@ -55,26 +55,26 @@ t3.chain(function(a) {
 The easiest way is to grab it from NPM. If you're running in a Browser
 environment, you can use [Browserify][]
 
-    $ npm install monads.future
+    $ npm install data.future
 
 
 ### Using with CommonJS
 
 If you're not using NPM, [Download the latest release][release], and require
-the `monads.future.umd.js` file:
+the `data.future.umd.js` file:
 
 ```js
-var Future = require('monads.future')
+var Future = require('data.future')
 ```
 
 
 ### Using with AMD
 
-[Download the latest release][release], and require the `monads.future.umd.js`
+[Download the latest release][release], and require the `data.future.umd.js`
 file:
 
 ```js
-require(['monads.future'], function(Future) {
+require(['data.future'], function(Future) {
   ( ... )
 })
 ```
@@ -82,11 +82,11 @@ require(['monads.future'], function(Future) {
 
 ### Using without modules
 
-[Download the latest release][release], and load the `monads.future.umd.js`
+[Download the latest release][release], and load the `data.future.umd.js`
 file. The properties are exposed in the global `Future` object:
 
 ```html
-<script src="/path/to/monads.future.umd.js"></script>
+<script src="/path/to/data.future.umd.js"></script>
 ```
 
 
@@ -95,12 +95,12 @@ file. The properties are exposed in the global `Future` object:
 If you want to compile this library from the source, you'll need [Git][],
 [Make][], [Node.js][], and run the following commands:
 
-    $ git clone git://github.com/folktale/monads.future.git
-    $ cd monads.future
+    $ git clone git://github.com/folktale/data.future.git
+    $ cd data.future
     $ npm install
     $ make bundle
     
-This will generate the `dist/monads.future.umd.js` file, which you can load in
+This will generate the `dist/data.future.umd.js` file, which you can load in
 any JavaScript environment.
 
     
@@ -126,15 +126,18 @@ platforms by the use of shims. Just include [es5-shim][] :)
 
 Copyright (c) 2013 Quildreen Motta.
 
-Released under the [MIT licence](https://github.com/folktale/monads.future/blob/master/LICENCE).
+Released under the [MIT licence](https://github.com/folktale/data.future/blob/master/LICENCE).
 
 <!-- links -->
 [Fantasy Land]: https://github.com/fantasyland/fantasy-land
 [Browserify]: http://browserify.org/
-[release]: https://github.com/folktale/monads.future/releases/download/v0.2.0/monads.future-0.2.0.tar.gz
 [Git]: http://git-scm.com/
 [Make]: http://www.gnu.org/software/make/
 [Node.js]: http://nodejs.org/
 [es5-shim]: https://github.com/kriskowal/es5-shim
-[docs]: http://folktale.github.io/monads.future
+[docs]: http://folktale.github.io/data.future
 [CPS]: http://matt.might.net/articles/by-example-continuation-passing-style/
+<!-- [release: https://github.com/folktale/data.future/releases/download/v$VERSION/data.future-$VERSION.tar.gz] -->
+[release]: https://github.com/folktale/data.future/releases/download/v1.0.0/data.future-1.0.0.tar.gz
+<!-- [/release] -->
+
