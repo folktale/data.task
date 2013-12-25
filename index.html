@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="monadsfuture">monads.future</h1>
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">README.md</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-future-monad">The Future monad</h1>
 
-<p><a href="https://travis-ci.org/folktale/monads.future"><img src="https://secure.travis-ci.org/folktale/monads.future.png?branch=master" alt="Build Status" title="" /></a>
-<a href="http://badge.fury.io/js/monads.future"><img src="https://badge.fury.io/js/monads.future.png" alt="NPM version" title="" /></a>
-<a href="https://david-dm.org/folktale/monads.future"><img src="https://david-dm.org/folktale/monads.future.png" alt="Dependencies Status" title="" /></a>
-<a href="http://github.com/hughsk/stability-badges"><img src="http://hughsk.github.io/stability-badges/dist/experimental.svg" alt="experimental" title="" /></a></p>
+<p><a href="https://travis-ci.org/folktale/data.future"><img src="https://secure.travis-ci.org/folktale/data.future.png?branch=master" alt="Build Status" title="" /></a>
+<a href="http://badge.fury.io/js/data.future"><img src="https://badge.fury.io/js/data.future.png" alt="NPM version" title="" /></a>
+<a href="https://david-dm.org/folktale/data.future"><img src="https://david-dm.org/folktale/data.future.png" alt="Dependencies Status" title="" /></a>
+<a href="http://github.com/hughsk/stability-badges"><img src="http://hughsk.github.io/stability-badges/dist/stable.svg" alt="stable" title="" /></a></p>
 
 <p>The <code>Future(a, b)</code> monad represents values that depend on time. This allows one
 to model time-based effects explicitly, such that one can have full knowledge
@@ -17,10 +17,10 @@ monadic operations.</p>
 
 <h2 id="example">Example</h2>
 
-<pre><code class="js">var Future = require('monads.future')
+<pre><code class="js">var Future = require('data.future')
 
 function get(url) {
-  return Future.defer(function(resolve, reject) {
+  return new Future(function(resolve, reject) {
     var request = new XMLHttpRequest()
     request.onload = function() {
       if (!/2\d\d/.test(this.status))  reject(this.responseText)
@@ -50,33 +50,33 @@ t3.chain(function(a) {
 <p>The easiest way is to grab it from NPM. If you're running in a Browser
 environment, you can use <a href="http://browserify.org/">Browserify</a></p>
 
-<pre><code>$ npm install monads.future
+<pre><code>$ npm install data.future
 </code></pre>
 
 <h3 id="using-with-commonjs">Using with CommonJS</h3>
 
-<p>If you're not using NPM, <a href="https://github.com/folktale/monads.future/releases/download/v0.0.0/monads.future-0.0.0.tar.gz">Download the latest release</a>, and require
-the <code>monads.future.umd.js</code> file:</p>
+<p>If you're not using NPM, <a href="https://github.com/folktale/data.future/releases/download/v1.0.0/data.future-1.0.0.tar.gz">Download the latest release</a>, and require
+the <code>data.future.umd.js</code> file:</p>
 
-<pre><code class="js">var Future = require('monads.future')
+<pre><code class="js">var Future = require('data.future')
 </code></pre>
 
 <h3 id="using-with-amd">Using with AMD</h3>
 
-<p><a href="https://github.com/folktale/monads.future/releases/download/v0.0.0/monads.future-0.0.0.tar.gz">Download the latest release</a>, and require the <code>monads.future.umd.js</code>
+<p><a href="https://github.com/folktale/data.future/releases/download/v1.0.0/data.future-1.0.0.tar.gz">Download the latest release</a>, and require the <code>data.future.umd.js</code>
 file:</p>
 
-<pre><code class="js">require(['monads.future'], function(Future) {
+<pre><code class="js">require(['data.future'], function(Future) {
   ( ... )
 })
 </code></pre>
 
 <h3 id="using-without-modules">Using without modules</h3>
 
-<p><a href="https://github.com/folktale/monads.future/releases/download/v0.0.0/monads.future-0.0.0.tar.gz">Download the latest release</a>, and load the <code>monads.future.umd.js</code>
+<p><a href="https://github.com/folktale/data.future/releases/download/v1.0.0/data.future-1.0.0.tar.gz">Download the latest release</a>, and load the <code>data.future.umd.js</code>
 file. The properties are exposed in the global <code>Future</code> object:</p>
 
-<pre><code class="html">&lt;script src="/path/to/monads.future.umd.js"&gt;&lt;/script&gt;
+<pre><code class="html">&lt;script src="/path/to/data.future.umd.js"&gt;&lt;/script&gt;
 </code></pre>
 
 <h3 id="compiling-from-source">Compiling from source</h3>
@@ -84,18 +84,18 @@ file. The properties are exposed in the global <code>Future</code> object:</p>
 <p>If you want to compile this library from the source, you'll need <a href="http://git-scm.com/">Git</a>,
 <a href="http://www.gnu.org/software/make/">Make</a>, <a href="http://nodejs.org/">Node.js</a>, and run the following commands:</p>
 
-<pre><code>$ git clone git://github.com/folktale/monads.future.git
-$ cd monads.future
+<pre><code>$ git clone git://github.com/folktale/data.future.git
+$ cd data.future
 $ npm install
 $ make bundle
 </code></pre>
 
-<p>This will generate the <code>dist/monads.future.umd.js</code> file, which you can load in
+<p>This will generate the <code>dist/data.future.umd.js</code> file, which you can load in
 any JavaScript environment.</p>
 
 <h2 id="documentation">Documentation</h2>
 
-<p>You can <a href="http://folktale.github.io/monads.future">read the documentation online</a> or build it yourself:</p>
+<p>You can <a href="http://folktale.github.io/data.future">read the documentation online</a> or build it yourself:</p>
 
 <pre><code>$ git clone git://github.com/folktale/monads.maybe.git
 $ cd monads.maybe
@@ -114,6 +114,10 @@ platforms by the use of shims. Just include <a href="https://github.com/kriskowa
 
 <p>Copyright (c) 2013 Quildreen Motta.</p>
 
-<p>Released under the <a href="https://github.com/folktale/monads.future/blob/master/LICENCE">MIT licence</a>.</p>
+<p>Released under the <a href="https://github.com/folktale/data.future/blob/master/LICENCE">MIT licence</a>.</p>
 
-<!-- links --></div></div></div></div></body></html>
+<!-- links -->
+
+<!-- [release: https://github.com/folktale/data.future/releases/download/v$VERSION/data.future-$VERSION.tar.gz] -->
+
+<!-- [/release] --></div></div></div></div></body></html>

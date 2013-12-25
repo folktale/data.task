@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>src/index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/index"><meta name="groc-project-path" content="src/index.ls"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/index.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="monadsfuture">monads.future</h1>
+<!DOCTYPE html><html lang="en"><head><title>src/index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/index"><meta name="groc-project-path" content="src/index.ls"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/index.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-future-monad">The Future monad</h1>
 
 <p>The <code>Future(a, b)</code> monad represents values that depend on time. This
 allows one to model time-based effects explicitly, such that one can
@@ -82,8 +82,7 @@ the original fork returns.</p></div></div><div class="code"><div class="wrapper"
 </ul></div></div><div class="code"><div class="wrapper"><span class="nv">id = </span><span class="nf">(a) -&gt;</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="excepction-rejectedfutureextractionerror">Excepction: RejectedFutureExtractionError</h2>
 
 <p>Thrown when trying to extract the value of a rejected future.</p></div></div><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">RejectedFutureExtractionError</span> <span class="k">extends</span> <span class="nx">TypeError</span>
-  <span class="nf">-&gt;</span>
-    <span class="nx">TypeError</span><span class="p">.</span><span class="nx">call</span> <span class="k">this</span><span class="p">,</span> <span class="s">&quot;Can&#39;t extract the value of a rejected future.&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="class-future">Class: Future</h2>
+  <span class="nf">-&gt;</span> <span class="k">super</span> <span class="s">&quot;Can&#39;t extract the value of a rejected future.&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="class-future">Class: Future</h2>
 
 <p>The <code>Future(a, b)</code> monad.</p></div></div><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Future</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-constructors">Section: Constructors</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="constructor">Constructor</h4>
 
@@ -145,44 +144,14 @@ function will return false.
                                             <span class="o">*</span> <span class="nf">(_)  -&gt;</span> <span class="kc">false</span>
                             <span class="o">*</span> <span class="nf">(s) -&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fork</span> <span class="nx">do</span>
                                             <span class="o">*</span> <span class="nf">(_)  -&gt;</span> <span class="kc">false</span>
-                                            <span class="o">*</span> <span class="nf">(s2) -&gt;</span> <span class="nx">s</span> <span class="o">is</span> <span class="nx">s2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-extracting-and-recovering">Section: Extracting and Recovering</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-get">Function: get</h4>
-
-<p>Extracts the successful value out of the Future monad, if it
-exists. Otherwise throws a <code>TypeError</code>.</p>
-
-<ul>
-<li>see: get-or-else — A getter that can handle failures.</li>
-<li>see: merge — Returns the convergence of both values.</li>
-<li>type: (@Future(a, b), *throws) => Unit -> b</li>
-<li>throws: TypeError — if the monad doesn't have a successful value.</li>
-</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">get: </span><span class="nf">-&gt;</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">resolved</span> <span class="o">=&gt;</span> <span class="nx">@value</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">rejected</span> <span class="o">=&gt;</span> <span class="k">throw</span> <span class="k">new</span> <span class="nx">RejectedFutureExtractionError</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">pending</span>  <span class="o">=&gt;</span> <span class="nx">@fork</span> <span class="nx">do</span>
-                            <span class="o">*</span> <span class="nf">(a) -&gt;</span> <span class="k">throw</span> <span class="k">new</span> <span class="nx">RejectedFutureExtractionError</span>
-                            <span class="o">*</span> <span class="nx">id</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-get-or-else">Function: get-or-else</h4>
-
-<p>Extracts the successful value out of the Future monad. If the monad
-doesn't have a successful value, returns the given default.
-+ type: (@Future(a, b)) => b -> b</p></div></div><div class="code"><div class="wrapper">  <span class="nv">get-or-else: </span><span class="nf">(b) -&gt;</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">resolved</span> <span class="o">=&gt;</span> <span class="nx">@value</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">rejected</span> <span class="o">=&gt;</span> <span class="nx">b</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">pending</span>  <span class="o">=&gt;</span> <span class="nx">@fork</span> <span class="nx">do</span>
-                            <span class="o">*</span> <span class="nf">(a) -&gt;</span> <span class="nx">b</span>
-                            <span class="o">*</span> <span class="nx">id</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-or-else">Function: or-else</h4>
+                                            <span class="o">*</span> <span class="nf">(s2) -&gt;</span> <span class="nx">s</span> <span class="o">is</span> <span class="nx">s2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-extracting-and-recovering">Section: Extracting and Recovering</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-or-else">Function: or-else</h4>
 
 <p>Transforms a failure value into a new Future monad. Does nothing if
 the monad contains a successful value.
 + type: (@Future(a, b)) => (a -> Future(c, b)) -> Future(c, b)</p></div></div><div class="code"><div class="wrapper">  <span class="o">or-</span><span class="k">else</span><span class="o">:</span> <span class="nf">(f) -&gt;</span>
     <span class="k">new</span> <span class="nx">Future</span> <span class="nf">(reject, resolve) ~&gt;</span> <span class="nx">@fork</span> <span class="nx">do</span>
                                           <span class="o">*</span> <span class="nf">(a) -&gt;</span> <span class="p">(</span><span class="nx">f</span> <span class="nx">a</span><span class="p">).</span><span class="nx">fork</span> <span class="nx">reject</span><span class="p">,</span> <span class="nx">resolve</span>
-                                          <span class="o">*</span> <span class="nf">(b) -&gt;</span> <span class="nx">resolve</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-merge">Function: merge</h4>
-
-<p>Returns the value of whichever side of the disjunction that is
-present.
-+ type: (@Future(a, a)) => Unit -> a</p></div></div><div class="code"><div class="wrapper">  <span class="nv">merge: </span><span class="nf">-&gt;</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">pending</span> <span class="o">=&gt;</span> <span class="nx">@fork</span> <span class="nx">id</span><span class="p">,</span> <span class="nx">id</span>
-    <span class="o">|</span> <span class="nx">otherwise</span>   <span class="o">=&gt;</span> <span class="nx">@value</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-folds-and-extended-transformations">Section: Folds and Extended Transformations</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-fold">Function: fold</h4>
+                                          <span class="o">*</span> <span class="nf">(b) -&gt;</span> <span class="nx">resolve</span> <span class="nx">b</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-folds-and-extended-transformations">Section: Folds and Extended Transformations</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-fold">Function: fold</h4>
 
 <p>Catamorphism. Takes two functions, applies the leftmost one to the
 failure value and the rightmost one to the successful value,

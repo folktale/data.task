@@ -13,7 +13,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/home/queen/Projects/folktale/monads.future/README.md",
+        "sourcePath": "/home/queen/Projects/folktale/data/future/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -21,8 +21,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "monads.future",
-            "slug": "monadsfuture",
+            "title": "The Future monad",
+            "slug": "the-future-monad",
             "isFileHeader": true
           },
           "depth": 1,
@@ -105,7 +105,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             }
           ]
         },
-        "title": "monads.future"
+        "title": "The Future monad"
       },
       "depth": 1,
       "outline": [
@@ -206,7 +206,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "LiveScript"
             },
-            "sourcePath": "/home/queen/Projects/folktale/monads.future/src/index.ls",
+            "sourcePath": "/home/queen/Projects/folktale/data/future/src/index.ls",
             "projectPath": "src/index.ls",
             "targetPath": "src/index",
             "pageTitle": "src/index",
@@ -214,8 +214,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 1,
-                "title": "monads.future",
-                "slug": "monadsfuture",
+                "title": "The Future monad",
+                "slug": "the-future-monad",
                 "isFileHeader": true
               },
               "depth": 1,
@@ -423,32 +423,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                           "type": "heading",
                           "data": {
                             "level": 4,
-                            "title": "Function: get",
-                            "slug": "function-get"
-                          },
-                          "depth": 4
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Function: get-or-else",
-                            "slug": "function-get-or-else"
-                          },
-                          "depth": 4
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
                             "title": "Function: or-else",
                             "slug": "function-or-else"
-                          },
-                          "depth": 4
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Function: merge",
-                            "slug": "function-merge"
                           },
                           "depth": 4
                         }
@@ -509,7 +485,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 }
               ]
             },
-            "title": "monads.future"
+            "title": "The Future monad"
           },
           "depth": 2,
           "outline": [
@@ -716,32 +692,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "type": "heading",
                       "data": {
                         "level": 4,
-                        "title": "Function: get",
-                        "slug": "function-get"
-                      },
-                      "depth": 4
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
-                        "title": "Function: get-or-else",
-                        "slug": "function-get-or-else"
-                      },
-                      "depth": 4
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
                         "title": "Function: or-else",
                         "slug": "function-or-else"
-                      },
-                      "depth": 4
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
-                        "title": "Function: merge",
-                        "slug": "function-merge"
                       },
                       "depth": 4
                     }
@@ -831,7 +783,37 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "LiveScript"
                 },
-                "sourcePath": "/home/queen/Projects/folktale/monads.future/test/specs/index.ls",
+                "sourcePath": "/home/queen/Projects/folktale/data/future/test/specs/future.ls",
+                "projectPath": "test/specs/future.ls",
+                "targetPath": "test/specs/future",
+                "pageTitle": "test/specs/future",
+                "firstHeader": {
+                  "type": "heading",
+                  "data": {
+                    "level": 1,
+                    "title": "Specification for Future",
+                    "slug": "specification-for-future",
+                    "isFileHeader": true
+                  },
+                  "depth": 1
+                },
+                "title": "Specification for Future"
+              },
+              "depth": 3,
+              "outline": []
+            }, {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".ls", "Slakefile"],
+                  "pygmentsLexer": "livescript",
+                  "multiLineComment": ["/*", "*", "*/"],
+                  "singleLineComment": ["#"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "LiveScript"
+                },
+                "sourcePath": "/home/queen/Projects/folktale/data/future/test/specs/index.ls",
                 "projectPath": "test/specs/index.ls",
                 "targetPath": "test/specs/index",
                 "pageTitle": "test/specs/index",
@@ -861,7 +843,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "LiveScript"
                 },
-                "sourcePath": "/home/queen/Projects/folktale/monads.future/test/specs/monad-laws.ls",
+                "sourcePath": "/home/queen/Projects/folktale/data/future/test/specs/monad-laws.ls",
                 "projectPath": "test/specs/monad-laws.ls",
                 "targetPath": "test/specs/monad-laws",
                 "pageTitle": "test/specs/monad-laws",
@@ -893,7 +875,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "LiveScript"
             },
-            "sourcePath": "/home/queen/Projects/folktale/monads.future/test/tap.ls",
+            "sourcePath": "/home/queen/Projects/folktale/data/future/test/tap.ls",
             "projectPath": "test/tap.ls",
             "targetPath": "test/tap",
             "pageTitle": "test/tap",
