@@ -27,4 +27,5 @@ module.exports = [
   # The specification objects go here
   # See: http://hifivejs.github.io/hifive/getting-started.html
   require './monad-laws'
+  require './future'
 ]
