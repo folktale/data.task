@@ -26,9 +26,9 @@
     "url": "https://github.com/folktale/data.future/issues"
   },
   "dependencies": {
-    "claire": "~0.4.1"
   },
   "devDependencies": {
+    "claire": "~0.4.1",
     "browserify": "git://github.com/robotlolita/node-browserify",
     "groc": "git://github.com/robotlolita/groc#patch-livescript",
     "LiveScript": "~1.2.0",
