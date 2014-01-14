@@ -64,15 +64,13 @@ memoised-fork = (f, future) ->
                    started = true
                    f do
                      * (a) -> do
-                              future.is-pending  := false
-                              future.is-rejected := rejected := true
-                              future.value       := a
+                              rejected     := true
+                              future.value := a
                               invoke-pending \rejected, a
                               g a
                      * (b) -> do
-                              future.is-pending  := false
-                              future.is-resolved := resolved := true
-                              future.value       := b
+                              resolved     := true
+                              future.value := b
                               invoke-pending \resolved, b
                               h b
 
@@ -81,21 +79,6 @@ memoised-fork = (f, future) ->
     started        := false
     pending.length := 0
     for x in xs => x[kind] value
-
-
-# ## Function: id
-#
-# The identity function.
-#  
-# + type: a -> a
-id = (a) -> a
-
-# ## Excepction: RejectedFutureExtractionError
-#
-# Thrown when trying to extract the value of a rejected future.
-class RejectedFutureExtractionError extends TypeError
-  -> super "Can't extract the value of a rejected future."
-
 
 
 # ## Class: Future
@@ -110,30 +93,6 @@ class Future
   #
   # + type: ((a -> Unit), (b -> Unit)) -> Promise(a, b)
   (f) -> @fork = memoised-fork f, this
-
-
-  # ### Section: Predicates ############################################
-
-  # #### Field: is-pending
-  #
-  # True if the Future hasn't been resolved yet.
-  #  
-  # + type: Boolean
-  is-pending: true
-
-  # #### Field: is-resolved
-  #
-  # True if the Future has been resolved successfully.
-  #
-  # + type: Boolean
-  is-resolved: false
-
-  # #### Field: is-failure
-  #
-  # True if the Future has been rejected — resolved with a failure.
-  #
-  # + type: Boolean
-  is-rejected: false
 
 
   # ### Section: Applicative ###########################################
@@ -189,33 +148,7 @@ class Future
   # Returns a textual representation of the Future monad.
   #  
   # + type: (@Future(a, b)) => Unit -> String
-  to-string: ->
-    | @is-pending  => "Future.Pending"
-    | @is-resolved => "Future.Resolved(#{@value})"
-    | @is-rejected => "Future.Rejected(#{@value})"
-
-
-  # ### Section: Eq ####################################################
-
-  # #### Function: is-equal
-  #
-  # Tests if an Future monad is equal to another Future monad.
-  #  
-  # Equality with pending futures is only decidable if the computation
-  # of both futures can be resolved synchronously. Otherwise this
-  # function will return false.
-  #
-  # + type: (@Future(a, b)) => Future(a, b) -> Boolean
-  is-equal: (a) -> Boolean switch
-    | @is-resolved => a.is-resolved and (a.value is @value)
-    | @is-rejected => a.is-rejected and (a.value is @value)
-    | @is-pending  => @fork do
-                            * (e) -> a.fork do
-                                            * (e2) -> e is e2
-                                            * (_)  -> false
-                            * (s) -> a.fork do
-                                            * (_)  -> false
-                                            * (s2) -> s is s2
+  to-string: -> "Future"
 
 
   # ### Section: Extracting and Recovering #############################

@@ -28,7 +28,7 @@
 # to verify.
 spec = (require 'hifive')!
 laws = require 'laws'
-Future = require '../../src/'
+Future = require '../eq-future'
 
 # And to use the laws, we need to provide a constructor function, that
 # given a single argument will return a new data structure containing

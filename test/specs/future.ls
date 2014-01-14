@@ -24,7 +24,7 @@
  */
 
 spec = (require 'hifive')!
-Future = require '../../src/'
+Future = require '../eq-future'
 {for-all, data: {Any:BigAny, Int}, sized, choice, transform} = require 'claire'
 {ok, throws, equal} = require 'assert'
 
