@@ -142,7 +142,7 @@ platforms by the use of shims. Just include [es5-shim][] :)
 
 ## Licence
 
-Copyright (c) 2013 Quildreen Motta.
+Copyright (c) 2013-2014 Quildreen Motta.
 
 Released under the [MIT licence](https://github.com/folktale/data.future/blob/master/LICENCE).
 

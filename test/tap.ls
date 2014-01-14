@@ -1,7 +1,7 @@
 # # A node test runner
 
 /** ^
- * Copyright (c) 2013 Quildreen Motta
+ * Copyright (c) 2013-2014 Quildreen Motta
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation files
