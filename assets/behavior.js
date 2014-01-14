@@ -232,22 +232,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 2,
-                    "title": "Function: id",
-                    "slug": "function-id"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "Excepction: RejectedFutureExtractionError",
-                    "slug": "excepction-rejectedfutureextractionerror"
-                  },
-                  "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
                     "title": "Class: Future",
                     "slug": "class-future"
                   },
@@ -270,39 +254,12 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                             "slug": "constructor"
                           },
                           "depth": 4
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Section: Predicates",
-                        "slug": "section-predicates"
-                      },
-                      "depth": 3,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Field: is-pending",
-                            "slug": "field-is-pending"
-                          },
-                          "depth": 4
                         }, {
                           "type": "heading",
                           "data": {
                             "level": 4,
-                            "title": "Field: is-resolved",
-                            "slug": "field-is-resolved"
-                          },
-                          "depth": 4
-                        }, {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Field: is-failure",
-                            "slug": "field-is-failure"
+                            "title": "Function: memoise",
+                            "slug": "function-memoise"
                           },
                           "depth": 4
                         }
@@ -387,25 +344,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                             "level": 4,
                             "title": "Function: to-string",
                             "slug": "function-to-string"
-                          },
-                          "depth": 4
-                        }
-                      ]
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 3,
-                        "title": "Section: Eq",
-                        "slug": "section-eq"
-                      },
-                      "depth": 3,
-                      "children": [
-                        {
-                          "type": "heading",
-                          "data": {
-                            "level": 4,
-                            "title": "Function: is-equal",
-                            "slug": "function-is-equal"
                           },
                           "depth": 4
                         }
@@ -501,22 +439,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Function: id",
-                "slug": "function-id"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Excepction: RejectedFutureExtractionError",
-                "slug": "excepction-rejectedfutureextractionerror"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
                 "title": "Class: Future",
                 "slug": "class-future"
               },
@@ -539,39 +461,12 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                         "slug": "constructor"
                       },
                       "depth": 4
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
-                    "title": "Section: Predicates",
-                    "slug": "section-predicates"
-                  },
-                  "depth": 3,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
-                        "title": "Field: is-pending",
-                        "slug": "field-is-pending"
-                      },
-                      "depth": 4
                     }, {
                       "type": "heading",
                       "data": {
                         "level": 4,
-                        "title": "Field: is-resolved",
-                        "slug": "field-is-resolved"
-                      },
-                      "depth": 4
-                    }, {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
-                        "title": "Field: is-failure",
-                        "slug": "field-is-failure"
+                        "title": "Function: memoise",
+                        "slug": "function-memoise"
                       },
                       "depth": 4
                     }
@@ -664,25 +559,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "Section: Eq",
-                    "slug": "section-eq"
-                  },
-                  "depth": 3,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
-                        "title": "Function: is-equal",
-                        "slug": "function-is-equal"
-                      },
-                      "depth": 4
-                    }
-                  ]
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
                     "title": "Section: Extracting and Recovering",
                     "slug": "section-extracting-and-recovering"
                   },
@@ -764,6 +640,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
       "depth": 1,
       "children": [
         {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".ls", "Slakefile"],
+              "pygmentsLexer": "livescript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "LiveScript"
+            },
+            "sourcePath": "/home/queen/Projects/folktale/data/future/test/eq-future.ls",
+            "projectPath": "test/eq-future.ls",
+            "targetPath": "test/eq-future",
+            "pageTitle": "test/eq-future",
+            "title": "eq-future"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 4,
+                "title": "Function: is-equal",
+                "slug": "function-is-equal"
+              },
+              "depth": 4
+            }
+          ]
+        }, {
           "type": "folder",
           "data": {
             "path": "test/specs",

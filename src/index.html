@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><title>src/index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/index"><meta name="groc-project-path" content="src/index.ls"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/index.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-future-monad">The Future monad</h1>
+<!DOCTYPE html><html lang="en"><head><title>src/index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="src/index"><meta name="groc-project-path" content="src/index.ls"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo|PT+Sans"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">src/index.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="the-future-monad">The Future monad</h1>
 
 <p>The <code>Future(a, b)</code> monad represents values that depend on time. This
 allows one to model time-based effects explicitly, such that one can
@@ -9,7 +9,7 @@ latency, or anything that can not be computed immediately.</p>
 Continuation-Passing Style form of programming, in order to be
 able to compose and sequence time-dependent effects using the generic
 and powerful monadic operations.</p></div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">/** </span></div><div class="wrapper"><span class="cm">/** </span>
-<span class="cm"> * Copyright (c) 2013 Quildreen Motta</span>
+<span class="cm"> * Copyright (c) 2013-2014 Quildreen Motta</span>
 <span class="cm"> *</span>
 <span class="cm"> * Permission is hereby granted, free of charge, to any person</span>
 <span class="cm"> * obtaining a copy of this software and associated documentation files</span>
@@ -57,15 +57,13 @@ the original fork returns.</p></div></div><div class="code"><div class="wrapper"
                    <span class="nv">started = </span><span class="kc">true</span>
                    <span class="nx">f</span> <span class="nx">do</span>
                      <span class="o">*</span> <span class="nf">(a) -&gt;</span> <span class="nx">do</span>
-                              <span class="nx">future</span><span class="p">.</span><span class="nx">is-pending</span>  <span class="o">:=</span> <span class="kc">false</span>
-                              <span class="nx">future</span><span class="p">.</span><span class="nx">is-rejected</span> <span class="o">:=</span> <span class="nx">rejected</span> <span class="o">:=</span> <span class="kc">true</span>
-                              <span class="nx">future</span><span class="p">.</span><span class="nx">value</span>       <span class="o">:=</span> <span class="nx">a</span>
+                              <span class="nx">rejected</span>     <span class="o">:=</span> <span class="kc">true</span>
+                              <span class="nx">future</span><span class="p">.</span><span class="nx">value</span> <span class="o">:=</span> <span class="nx">a</span>
                               <span class="nx">invoke-pending</span> <span class="s">\rejected</span><span class="p">,</span> <span class="nx">a</span>
                               <span class="nx">g</span> <span class="nx">a</span>
                      <span class="o">*</span> <span class="nf">(b) -&gt;</span> <span class="nx">do</span>
-                              <span class="nx">future</span><span class="p">.</span><span class="nx">is-pending</span>  <span class="o">:=</span> <span class="kc">false</span>
-                              <span class="nx">future</span><span class="p">.</span><span class="nx">is-resolved</span> <span class="o">:=</span> <span class="nx">resolved</span> <span class="o">:=</span> <span class="kc">true</span>
-                              <span class="nx">future</span><span class="p">.</span><span class="nx">value</span>       <span class="o">:=</span> <span class="nx">b</span>
+                              <span class="nx">resolved</span>     <span class="o">:=</span> <span class="kc">true</span>
+                              <span class="nx">future</span><span class="p">.</span><span class="nx">value</span> <span class="o">:=</span> <span class="nx">b</span>
                               <span class="nx">invoke-pending</span> <span class="s">\resolved</span><span class="p">,</span> <span class="nx">b</span>
                               <span class="nx">h</span> <span class="nx">b</span>
 
@@ -73,33 +71,22 @@ the original fork returns.</p></div></div><div class="code"><div class="wrapper"
     <span class="nv">xs              = </span><span class="nx">pending</span>
     <span class="nx">started</span>        <span class="o">:=</span> <span class="kc">false</span>
     <span class="nx">pending</span><span class="p">.</span><span class="nx">length</span> <span class="o">:=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">xs</span> <span class="o">=&gt;</span> <span class="nx">x</span><span class="p">[</span><span class="nx">kind</span><span class="p">]</span> <span class="nx">value</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="function-id">Function: id</h2>
-
-<p>The identity function.</p>
-
-<ul>
-<li>type: a -> a</li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="nv">id = </span><span class="nf">(a) -&gt;</span> <span class="nx">a</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="excepction-rejectedfutureextractionerror">Excepction: RejectedFutureExtractionError</h2>
-
-<p>Thrown when trying to extract the value of a rejected future.</p></div></div><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">RejectedFutureExtractionError</span> <span class="k">extends</span> <span class="nx">TypeError</span>
-  <span class="nf">-&gt;</span> <span class="k">super</span> <span class="s">&quot;Can&#39;t extract the value of a rejected future.&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="class-future">Class: Future</h2>
+    <span class="k">for</span> <span class="nx">x</span> <span class="k">in</span> <span class="nx">xs</span> <span class="o">=&gt;</span> <span class="nx">x</span><span class="p">[</span><span class="nx">kind</span><span class="p">]</span> <span class="nx">value</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="class-future">Class: Future</h2>
 
 <p>The <code>Future(a, b)</code> monad.</p></div></div><div class="code"><div class="wrapper"><span class="k">class</span> <span class="nx">Future</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-constructors">Section: Constructors</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="constructor">Constructor</h4>
 
 <p>Creates a new Future for a long-running computation <code>f</code>.
-+ type: ((a -> Unit), (b -> Unit)) -> Promise(a, b)</p></div></div><div class="code"><div class="wrapper">  <span class="nf">(f) -&gt;</span> <span class="vi">@fork = </span><span class="nx">memoised-fork</span> <span class="nx">f</span><span class="p">,</span> <span class="k">this</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-predicates">Section: Predicates</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="field-is-pending">Field: is-pending</h4>
++ type: ((a -> Unit), (b -> Unit)) -> Promise(a, b)</p></div></div><div class="code"><div class="wrapper">  <span class="nf">(f) -&gt;</span> <span class="vi">@fork = </span><span class="nx">f</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-memoise">Function: memoise</h4>
 
-<p>True if the Future hasn't been resolved yet.</p>
+<p>Creates a Future that computes the action at most once.</p>
 
 <ul>
-<li>type: Boolean</li>
-</ul></div></div><div class="code"><div class="wrapper">  <span class="o">is-</span><span class="nv">pending: </span><span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="field-is-resolved">Field: is-resolved</h4>
-
-<p>True if the Future has been resolved successfully.
-+ type: Boolean</p></div></div><div class="code"><div class="wrapper">  <span class="o">is-</span><span class="nv">resolved: </span><span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="field-is-failure">Field: is-failure</h4>
-
-<p>True if the Future has been rejected — resolved with a failure.
-+ type: Boolean</p></div></div><div class="code"><div class="wrapper">  <span class="o">is-</span><span class="nv">rejected: </span><span class="kc">false</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-applicative">Section: Applicative</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-of">Function: of</h4>
+<li>type: ((a -> Unit), (b -> Unit)) -> Promise(a, b)</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="vi">@memoise = </span><span class="nf">(f) -&gt;</span>
+    <span class="nv">future = </span><span class="k">new</span> <span class="nx">Future</span>
+    <span class="nv">future.fork = </span><span class="nx">memoised-fork</span> <span class="nx">f</span><span class="p">,</span> <span class="nx">future</span>
+    <span class="k">return</span> <span class="nx">future</span>
+  <span class="nv">memoise: </span><span class="nf">(f) -&gt;</span> <span class="nx">Future</span><span class="p">.</span><span class="nx">memoise</span> <span class="nx">f</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-applicative">Section: Applicative</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-of">Function: of</h4>
 
 <p>Constructs a new Future containing the single value <code>b</code>.
 <code>b</code> can be any value, including <code>null</code>, <code>undefined</code> or another
@@ -125,26 +112,7 @@ monad of the same type.
 
 <ul>
 <li>type: (@Future(a, b)) => Unit -> String</li>
-</ul></div></div><div class="code"><div class="wrapper">  <span class="k">to</span><span class="o">-</span><span class="nv">string: </span><span class="nf">-&gt;</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">pending</span>  <span class="o">=&gt;</span> <span class="s">&quot;Future.Pending&quot;</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">resolved</span> <span class="o">=&gt;</span> <span class="s">&quot;Future.Resolved(</span><span class="si">#{</span><span class="nx">@value</span><span class="si">}</span><span class="s">)&quot;</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">rejected</span> <span class="o">=&gt;</span> <span class="s">&quot;Future.Rejected(</span><span class="si">#{</span><span class="nx">@value</span><span class="si">}</span><span class="s">)&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-eq">Section: Eq</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-is-equal">Function: is-equal</h4>
-
-<p>Tests if an Future monad is equal to another Future monad.</p>
-
-<p>Equality with pending futures is only decidable if the computation
-of both futures can be resolved synchronously. Otherwise this
-function will return false.
-+ type: (@Future(a, b)) => Future(a, b) -> Boolean</p></div></div><div class="code"><div class="wrapper">  <span class="o">is-</span><span class="nv">equal: </span><span class="nf">(a) -&gt;</span> <span class="nb">Boolean</span> <span class="k">switch</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">resolved</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">is-resolved</span> <span class="o">and</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">value</span> <span class="o">is</span> <span class="nx">@value</span><span class="p">)</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">rejected</span> <span class="o">=&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">is-rejected</span> <span class="o">and</span> <span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">value</span> <span class="o">is</span> <span class="nx">@value</span><span class="p">)</span>
-    <span class="o">|</span> <span class="nx">@</span><span class="o">is-</span><span class="nx">pending</span>  <span class="o">=&gt;</span> <span class="nx">@fork</span> <span class="nx">do</span>
-                            <span class="o">*</span> <span class="nf">(e) -&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fork</span> <span class="nx">do</span>
-                                            <span class="o">*</span> <span class="nf">(e2) -&gt;</span> <span class="nx">e</span> <span class="o">is</span> <span class="nx">e2</span>
-                                            <span class="o">*</span> <span class="nf">(_)  -&gt;</span> <span class="kc">false</span>
-                            <span class="o">*</span> <span class="nf">(s) -&gt;</span> <span class="nx">a</span><span class="p">.</span><span class="nx">fork</span> <span class="nx">do</span>
-                                            <span class="o">*</span> <span class="nf">(_)  -&gt;</span> <span class="kc">false</span>
-                                            <span class="o">*</span> <span class="nf">(s2) -&gt;</span> <span class="nx">s</span> <span class="o">is</span> <span class="nx">s2</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-extracting-and-recovering">Section: Extracting and Recovering</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-or-else">Function: or-else</h4>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="k">to</span><span class="o">-</span><span class="nv">string: </span><span class="nf">-&gt;</span> <span class="s">&quot;Future&quot;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="section-extracting-and-recovering">Section: Extracting and Recovering</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="function-or-else">Function: or-else</h4>
 
 <p>Transforms a failure value into a new Future monad. Does nothing if
 the monad contains a successful value.

@@ -1,5 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><title>test/specs/future</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="test/specs/future"><meta name="groc-project-path" content="test/specs/future.ls"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">test/specs/future.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="specification-for-future">Specification for Future</h1></div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">/** </span></div><div class="wrapper"><span class="cm">/** </span>
-<span class="cm"> * Copyright (c) 2013 Quildreen Motta</span>
+<!DOCTYPE html><html lang="en"><head><title>test/specs/future</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="test/specs/future"><meta name="groc-project-path" content="test/specs/future.ls"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arvo|PT+Sans"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path">test/specs/future.ls</div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="specification-for-future">Specification for Future</h1></div></div></div><div class="segment"><div class="code folded"><div class="wrapper marker"><span class="c1">/** </span></div><div class="wrapper"><span class="cm">/** </span>
+<span class="cm"> * Copyright (c) 2013-2014 Quildreen Motta</span>
 <span class="cm"> *</span>
 <span class="cm"> * Permission is hereby granted, free of charge, to any person</span>
 <span class="cm"> * obtaining a copy of this software and associated documentation files</span>
@@ -22,7 +22,7 @@
 <span class="cm"> */</span>
 
 <span class="nv">spec = </span><span class="p">(</span><span class="nx">require</span> <span class="s">&#39;hifive&#39;</span><span class="p">)</span><span class="o">!</span>
-<span class="nv">Future = </span><span class="nx">require</span> <span class="s">&#39;../../src/&#39;</span>
+<span class="nv">Future = </span><span class="nx">require</span> <span class="s">&#39;../eq-future&#39;</span>
 <span class="p">{</span><span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">,</span> <span class="nv">data: </span><span class="p">{</span><span class="nx">Any</span><span class="o">:</span><span class="nx">BigAny</span><span class="p">,</span> <span class="nx">Int</span><span class="p">},</span> <span class="nx">sized</span><span class="p">,</span> <span class="nx">choice</span><span class="p">,</span> <span class="nx">transform</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;claire&#39;</span>
 <span class="p">{</span><span class="nx">ok</span><span class="p">,</span> <span class="nx">throws</span><span class="p">,</span> <span class="nx">equal</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s">&#39;assert&#39;</span>
 
@@ -98,4 +98,14 @@
          <span class="nx">Future</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="nx">a</span><span class="p">).</span><span class="nx">rejected-map</span><span class="p">(</span><span class="nx">k</span> <span class="nx">b</span><span class="p">).</span><span class="nx">is-equal</span> <span class="nx">Future</span><span class="p">.</span><span class="nx">of</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
        <span class="p">.</span><span class="nx">as-test</span><span class="o">!</span>
 
-  </div></div></div></div></body></html>
+  <span class="nx">spec</span> <span class="s">&#39;memoise(f)&#39;</span> <span class="nf">(o) -&gt;</span>
+    <span class="nx">o</span> <span class="s">&#39;Should compute the action at most once&#39;</span> <span class="nx">do</span>
+      <span class="k">for</span><span class="o">-</span><span class="nx">all</span><span class="p">(</span><span class="nx">AnyF</span><span class="p">).</span><span class="nx">satisfy</span> <span class="nf">(a) -&gt;</span>
+        <span class="nv">p = </span><span class="p">[]</span>
+        <span class="nv">f = </span><span class="nx">Future</span><span class="p">.</span><span class="nx">memoise</span> <span class="nf">(reject, resolve) -&gt;</span>
+                              <span class="nx">p</span><span class="p">.</span><span class="nx">push</span> <span class="nx">a</span>
+                              <span class="nx">resolve</span> <span class="nx">a</span>
+        <span class="nx">f</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">id</span><span class="p">).</span><span class="nx">is-equal</span> <span class="p">(</span><span class="nx">Future</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">)</span> <span class="o">and</span> <span class="o">\</span>
+        <span class="nx">f</span><span class="p">.</span><span class="nx">chain</span><span class="p">(</span><span class="nx">Future</span><span class="p">.</span><span class="nx">of</span><span class="p">).</span><span class="nx">is-equal</span> <span class="p">(</span><span class="nx">Future</span><span class="p">.</span><span class="nx">of</span> <span class="nx">a</span><span class="p">)</span> <span class="o">and</span> <span class="o">\</span>
+        <span class="nx">p</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">1</span>
+      <span class="p">.</span><span class="nx">as-test</span><span class="o">!</span></div></div></div></div></body></html>
