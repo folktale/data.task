@@ -29,7 +29,7 @@
   "devDependencies": {
     "claire": "~0.4.1",
     "browserify": "git://github.com/robotlolita/node-browserify",
-    "groc": "git://github.com/robotlolita/groc#patch-livescript",
+    "groc": "git://github.com/robotlolita/groc",
     "LiveScript": "~1.2.0",
     "hifive-tap": "~0.1.0",
     "hifive": "~0.1.0",
