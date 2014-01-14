@@ -22,31 +22,49 @@ monadic operations.
 
 ```js
 var Future = require('data.future')
+var fs = require('fs')
 
-function get(url) {
-  return new Future(function(resolve, reject) {
-    var request = new XMLHttpRequest()
-    request.onload = function() {
-      if (!/2\d\d/.test(this.status))  reject(this.responseText)
-      else                             resolve(this.responseText)
-    }
-    request.open("get", url, true)
-    request.send()
+// read : String -> Future(Error, Buffer)
+function read(path) {
+  return new Future(reject, resolve) {
+    fs.readFile(path, function(error, data) {
+      if (error)  reject(error)
+      else        resolve(data)
+    })
+  }
+}
+
+// decode : Future(Error, Buffer) -> Future(Error, String)
+function decode(buffer) {
+  return buffer.map(function(a) {
+    return a.toString('utf-8')
   })
 }
 
-var t1 = get('/something')
-var t2 = get('/other')
+var intro = decode(read('intro.txt'))
+var outro = decode(read('outro.txt'))
 
-var t3 = t1.map(function(a) {
-           t2.map(function(b) {
-             return a + b
-           })
-         })
+// You can use `.chain` to sequence two asynchronous actions, and
+// `.map` to perform a synchronous computation with the eventual
+// value of the Future.
+var concatenated = intro.chain(function(a) {
+                     return outro.map(function(b) {
+                       return a + b
+                     })
+                   })
 
-t3.chain(function(a) {
-  console.log(a)
-})
+// But the implementation of Future is pure, which means that you'll
+// never observe the effects by using `chain` or `map` or any other
+// method. The Future just records the sequence of actions that you
+// wish to observe, and defers the playing of that sequence of actions
+// for your application's entry-point to call.
+//
+// To observe the effects, you have to call the `fork` method, which
+// takes a callback for the rejection, and a callback for the success.
+concatenated.fork(
+  function(error) { throw error }
+, function(data)  { console.log(data) }
+)
 ```
 
 
