@@ -100,4 +100,14 @@ module.exports = spec 'Future' (o, spec) ->
          Future.of(a).rejected-map(k b).is-equal Future.of(a)
        .as-test!
 
-  
+  spec 'memoise(f)' (o) ->
+    o 'Should compute the action at most once' do
+      for-all(AnyF).satisfy (a) ->
+        p = []
+        f = Future.memoise (reject, resolve) ->
+                              p.push a
+                              resolve a
+        f.map(id).is-equal (Future.of a) and \
+        f.chain(Future.of).is-equal (Future.of a) and \
+        p.length === 1
+      .as-test!

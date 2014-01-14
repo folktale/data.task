@@ -92,8 +92,19 @@ class Future
   # Creates a new Future for a long-running computation `f`.
   #
   # + type: ((a -> Unit), (b -> Unit)) -> Promise(a, b)
-  (f) -> @fork = memoised-fork f, this
+  (f) -> @fork = f
 
+
+  # #### Function: memoise
+  #
+  # Creates a Future that computes the action at most once.
+  #  
+  # + type: ((a -> Unit), (b -> Unit)) -> Promise(a, b)
+  @memoise = (f) ->
+    future = new Future
+    future.fork = memoised-fork f, future
+    return future
+  memoise: (f) -> Future.memoise f
 
   # ### Section: Applicative ###########################################
 
