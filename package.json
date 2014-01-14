@@ -1,6 +1,6 @@
 {
   "name": "data.future",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
   "scripts": {
@@ -25,8 +25,7 @@
   "bugs": {
     "url": "https://github.com/folktale/data.future/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "claire": "~0.4.1",
     "browserify": "git://github.com/robotlolita/node-browserify",
