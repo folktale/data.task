@@ -26,12 +26,12 @@ var fs = require('fs')
 
 // read : String -> Future(Error, Buffer)
 function read(path) {
-  return new Future(reject, resolve) {
+  return new Future(function(reject, resolve) {
     fs.readFile(path, function(error, data) {
       if (error)  reject(error)
       else        resolve(data)
     })
-  }
+  })
 }
 
 // decode : Future(Error, Buffer) -> Future(Error, String)
