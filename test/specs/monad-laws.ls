@@ -48,12 +48,6 @@ module.exports = spec 'Algebraic laws' (o, spec) ->
     o '1. Identity'     laws.functor.identity(make).as-test!
     o '2. Composition'  laws.functor.composition(make).as-test!
 
-  spec ': Applicative' (o) ->
-    o '1. Identity'     laws.applicative.identity(make).as-test!
-    o '2. Composition'  laws.applicative.composition(make).as-test!
-    o '3. Homomorphism' laws.applicative.homomorphism(make).as-test!
-    o '4. Interchange'  laws.applicative.interchange(make).as-test!
- 
   spec ': Chain' (o) ->
     o '1. Associativity' laws.chain.associativity(make).as-test!
  
