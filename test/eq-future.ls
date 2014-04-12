@@ -22,7 +22,7 @@
  */
 
 
-Future = require '../src/'
+Future = require '../lib/'
 
 # #### Function: is-equal
 #

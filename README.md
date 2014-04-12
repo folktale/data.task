@@ -1,5 +1,5 @@
-The Future monad
-================
+Data.Future
+===========
 
 [![Build Status](https://secure.travis-ci.org/folktale/data.future.png?branch=master)](https://travis-ci.org/folktale/data.future)
 [![NPM version](https://badge.fury.io/js/data.future.png)](http://badge.fury.io/js/data.future)
@@ -7,7 +7,7 @@ The Future monad
 [![stable](http://hughsk.github.io/stability-badges/dist/stable.svg)](http://github.com/hughsk/stability-badges)
 
 
-The `Future(a, b)` monad represents values that depend on time. This allows one
+The `Future(a, b)` structure represents values that depend on time. This allows one
 to model time-based effects explicitly, such that one can have full knowledge
 of when they're dealing with delayed computations, latency, or anything that
 can not be computed immediately.
@@ -131,7 +131,7 @@ You can [read the documentation online][docs] or build it yourself:
     $ npm install
     $ make documentation
 
-Then open the file `docs/literate/index.html` in your browser.
+Then open the file `docs/index.html` in your browser.
 
 
 ## Platform support

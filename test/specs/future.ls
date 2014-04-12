@@ -38,12 +38,6 @@ rejected = (a) -> new Future (f, _) -> f a
 
 module.exports = spec 'Future' (o, spec) ->
 
-  o 'ap(b) should do nothing for rejected futures.' do
-     for-all(AnyF, AnyF).satisfy (a, b) ->
-       f = -> a
-       (rejected f).ap(Future.of(b)).is-equal (rejected f)
-     .as-test!
-
   o 'map(f) should do nothing for rejected futures.' do
      for-all(AnyF, AnyF).satisfy (a, b) ->
        (rejected a).map(-> b).is-equal (rejected a)

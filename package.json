@@ -4,8 +4,7 @@
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "make test",
-    "prepublish": "make compile"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -28,12 +27,13 @@
   "dependencies": {},
   "devDependencies": {
     "claire": "~0.4.1",
-    "browserify": "git://github.com/robotlolita/node-browserify",
-    "groc": "git://github.com/robotlolita/groc",
     "LiveScript": "~1.2.0",
     "hifive-tap": "~0.1.0",
     "hifive": "~0.1.0",
     "uglify-js": "~2.4.3",
-    "laws": "~0.2.0"
+    "laws": "^0.2.1",
+    "ink-docstrap": "git://github.com/robotlolita/docstrap",
+    "browserify": "^3.41.0",
+    "jsdoc": "^3.3.0-alpha5"
   }
 }
