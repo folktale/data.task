@@ -156,6 +156,6 @@ Released under the [MIT licence](https://github.com/folktale/data.future/blob/ma
 [docs]: http://folktale.github.io/data.future
 [CPS]: http://matt.might.net/articles/by-example-continuation-passing-style/
 <!-- [release: https://github.com/folktale/data.future/releases/download/v$VERSION/data.future-$VERSION.tar.gz] -->
-[release]: https://github.com/folktale/data.future/releases/download/v2.1.0/data.future-2.1.0.tar.gz
+[release]: https://github.com/folktale/data.future/releases/download/v3.0.0/data.future-3.0.0.tar.gz
 <!-- [/release] -->
 
