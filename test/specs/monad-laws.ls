@@ -28,7 +28,7 @@
 # to verify.
 spec = (require 'hifive')!
 laws = require 'laws'
-Future = require '../eq-future'
+Future = require '../../lib/future'
 
 # And to use the laws, we need to provide a constructor function, that
 # given a single argument will return a new data structure containing
@@ -50,7 +50,20 @@ module.exports = spec 'Algebraic laws' (o, spec) ->
 
   spec ': Chain' (o) ->
     o '1. Associativity' laws.chain.associativity(make).as-test!
- 
+
+  spec ': Applicative' (o) ->
+    o '1. identity'  laws.applicative.identity(make).as-test!
+    o '2. composition'  laws.applicative.composition(make).as-test!
+    o '3. homomorphism'  laws.applicative.homomorphism(make).as-test!
+    o '4. interchange'  laws.applicative.interchange(make).as-test!
+
+  spec ': Monoid' (o) ->
+    o '1. left-identity'  laws.monoid.left-identity(make).as-test!
+    o '2. right-identity'  laws.monoid.right-identity(make).as-test!
+
+  spec ': Semigroup' (o) ->
+    o '1. associativity'  laws.semigroup.associativity(make).as-test!
+
   spec ': Monad' (o) ->
     o '1. Left identity'  laws.monad.left-identity(make).as-test!
     o '2. Right identity' laws.monad.right-identity(make).as-test!

@@ -43,6 +43,16 @@ module.exports = spec 'Future' (o, spec) ->
        (rejected a).map(-> b).is-equal (rejected a)
      .as-test!
 
+  o 'ap(u) should do nothing for rejected futures.' do
+     for-all(AnyF, AnyF).satisfy (a, b) ->
+       Future.of(-> b).ap(rejected a).is-equal (rejected a)
+     .as-test!
+
+  o 'concat(u) should do nothing for rejected futures.' do
+     for-all(AnyF, AnyF).satisfy (a, b) ->
+       (rejected a).concat(b).is-equal (rejected a)
+     .as-test!
+
   o 'chain(f) should do nothing for rejected futures.' do
      for-all(AnyF, AnyF).satisfy (a, b) ->
        (rejected a).chain(-> Future.of b).is-equal (rejected a)

@@ -24,8 +24,13 @@
   "bugs": {
     "url": "https://github.com/folktale/data.future/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
+    "boo": "^2.0.0",
+    "pinky": "^0.1.3",
+    "pinky-combinators": "^0.1.1",
+    "prelude-ls": "^1.1.1",
     "claire": "~0.4.1",
     "LiveScript": "~1.2.0",
     "hifive-tap": "~0.1.0",
