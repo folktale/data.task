@@ -1,6 +1,6 @@
 {
   "name": "data.future",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
   "scripts": {
@@ -24,8 +24,7 @@
   "bugs": {
     "url": "https://github.com/folktale/data.future/issues"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "boo": "^2.0.0",
     "pinky": "^0.1.3",
