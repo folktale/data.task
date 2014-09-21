@@ -71,11 +71,21 @@ module.exports = spec 'Future' (o, spec) ->
   spec 'fold(f,g)' (o) ->
     o 'Should return a resolved future mapped by f if rejected.' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
-         (rejected a).fold((-> b), (-> c)).is-equal Future.of(b)
+         (rejected a).fold(((x) -> [x, b]), ((x) -> [x, c])).is-equal Future.of([a, b])
        .as-test!
     o 'Should return a resolved future mapped by g if resolved.' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
-         Future.of(a).fold((-> b), (-> c)).is-equal Future.of(c)
+         Future.of(a).fold(((x) -> [x, b]), ((x) -> [x, c])).is-equal Future.of([a, c])
+       .as-test!
+
+  spec 'cata(p)' (o) ->
+    o 'Should return a resolved future mapped by p.Rejected if rejected.' do
+       for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
+         (rejected a).cata(Rejected: ((x) -> [x, b]), Resolved: ((x) -> [x, c])).is-equal Future.of([a, b])
+       .as-test!
+    o 'Should return a resolved future mapped by p.Resolved if resolved.' do
+       for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
+         Future.of(a).cata(Rejected: ((x) -> [x, b]), Resolved: ((x) -> [x, c])).is-equal Future.of([a, c])
        .as-test!
 
   o 'Should swap the disjunction values.' do
@@ -107,10 +117,13 @@ module.exports = spec 'Future' (o, spec) ->
   spec 'memoise(f)' (o) ->
     o 'Should compute the action at most once' do
       for-all(AnyF).satisfy (a) ->
+        w = console.warn
+        console.warn = ->
         p = []
         f = Future.memoise (reject, resolve) ->
                               p.push a
                               resolve a
+        console.warn = w
         f.map(id).is-equal (Future.of a) and \
         f.chain(Future.of).is-equal (Future.of a) and \
         p.length === 1

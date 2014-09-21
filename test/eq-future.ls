@@ -38,10 +38,10 @@ Future = require '../lib/'
 # + type: (@Future(a, b)) => Future(a, b) -> Boolean
 Future::is-equal = (a) -> @fork do
                                  * (e) -> a.fork do
-                                                 * (e2) -> e is e2
+                                                 * (e2) -> e === e2
                                                  * (_)  -> false
                                  * (s) -> a.fork do
                                                  * (_)  -> false
-                                                 * (s2) -> s is s2  
+                                                 * (s2) -> s === s2  
 
 module.exports = Future
