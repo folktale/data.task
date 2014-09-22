@@ -50,7 +50,7 @@ module.exports = spec 'Future' (o, spec) ->
 
   o 'concat(u) should do nothing for rejected futures.' do
      for-all(AnyF, AnyF).satisfy (a, b) ->
-       (rejected a).concat(b).is-equal (rejected a)
+       (rejected a).concat(Future.of b).is-equal (rejected a)
      .as-test!
 
   o 'chain(f) should do nothing for rejected futures.' do
@@ -128,3 +128,29 @@ module.exports = spec 'Future' (o, spec) ->
         f.chain(Future.of).is-equal (Future.of a) and \
         p.length === 1
       .as-test!
+
+  spec 'cleanups' (o) ->
+    o 'Actions should be able to clean after themselves.' do
+       for-all(Any, Any).satisfy (a, b) ->
+         state = []
+         f = (a) -> new Future do
+                               * (reject, resolve) -> resolve a
+                               * -> state.push a
+         f1 = f 'foo'
+         f2 = f 'bar'
+         f1.concat(f2).fork((->), (->))
+         state === ['bar']
+       .as-test!
+    o 'Cleanup should propagate to other futures.' do
+       for-all(Any, Any).satisfy (a, b) ->
+         state = []
+         f = (a) -> new Future do
+                               * (reject, resolve) -> resolve a
+                               * -> state.push a
+         f1 = f 'foo'
+         f2 = f 'bar'
+         f3 = f1.concat(f2).map(->)
+         f3.cleanup!
+         state === ['foo', 'bar']
+       .as-test!
+
