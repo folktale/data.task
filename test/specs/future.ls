@@ -34,9 +34,14 @@ AnyF = choice Any, (transform (-> Future.of it), AnyF)
 
 k        = (a, b) --> a
 id       = (a) -> a
-rejected = (a) -> new Future (f, _) -> f a
+rejected = Future.rejected
 
 module.exports = spec 'Future' (o, spec) ->
+
+  o 'rejected(a) should create a rejected future.' do
+     for-all(Any).satisfy (a) ->
+       (rejected a).is-equal (new Future (f, _) -> f a)
+     .as-test!
 
   o 'map(f) should do nothing for rejected futures.' do
      for-all(AnyF, AnyF).satisfy (a, b) ->
