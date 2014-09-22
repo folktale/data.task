@@ -1,6 +1,6 @@
 {
   "name": "data.future",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
   "scripts": {
