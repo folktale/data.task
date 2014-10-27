@@ -26,7 +26,6 @@ function bump(what, version) {
   minor(version)
 }
 
-
 var old_version = pkg.version
 
 pkg.version = bump(process.argv[2], pkg.version.split('.')).join('.')

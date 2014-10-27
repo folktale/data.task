@@ -5,7 +5,6 @@ jsdoc      = $(bin)/jsdoc
 uglify     = $(bin)/uglifyjs
 VERSION    = $(shell node -e 'console.log(require("./package.json").version)')
 
-
 dist:
 	mkdir -p dist
 
@@ -55,6 +54,5 @@ bump-feature:
 
 bump-major:
 	VERSION_BUMP=MAJOR $(MAKE) bump
-
 
 .PHONY: test

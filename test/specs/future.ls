@@ -28,7 +28,6 @@ Future = require '../eq-future'
 {for-all, data: {Any:BigAny, Int}, sized, choice, transform} = require 'claire'
 {ok, throws, equal} = require 'assert'
 
-
 Any  = sized (-> 10), BigAny
 AnyF = choice Any, (transform (-> Future.of it), AnyF)
 
@@ -158,4 +157,3 @@ module.exports = spec 'Future' (o, spec) ->
          f3.cleanup!
          state === ['foo', 'bar']
        .as-test!
-

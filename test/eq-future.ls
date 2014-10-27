@@ -21,13 +21,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 Future = require '../lib/'
 
 # #### Function: is-equal
 #
 # Tests if an Future monad is equal to another Future monad.
-#  
+#
 # Equality with pending futures is only decidable if the computation
 # of both futures can be resolved synchronously. Otherwise this
 # function will return false.
@@ -42,6 +41,6 @@ Future::is-equal = (a) -> @fork do
                                                  * (_)  -> false
                                  * (s) -> a.fork do
                                                  * (_)  -> false
-                                                 * (s2) -> s === s2  
+                                                 * (s2) -> s === s2
 
 module.exports = Future
