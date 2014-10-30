@@ -6,7 +6,6 @@ Data.Future
 [![Dependencies Status](https://david-dm.org/folktale/data.future.png)](https://david-dm.org/folktale/data.future)
 [![stable](http://hughsk.github.io/stability-badges/dist/stable.svg)](http://github.com/hughsk/stability-badges)
 
-
 The `Future(a, b)` structure represents values that depend on time. This allows one
 to model time-based effects explicitly, such that one can have full knowledge
 of when they're dealing with delayed computations, latency, or anything that
@@ -16,7 +15,6 @@ A common use for this monad is to replace the usual
 [Continuation-Passing Style][CPS] form of programming, in order to be able to
 compose and sequence time-dependent effects using the generic and powerful
 monadic operations.
-
 
 ## Example
 
@@ -67,14 +65,12 @@ concatenated.fork(
 )
 ```
 
-
 ## Installing
 
 The easiest way is to grab it from NPM. If you're running in a Browser
 environment, you can use [Browserify][]
 
     $ npm install data.future
-
 
 ### Using with CommonJS
 
@@ -84,7 +80,6 @@ the `data.future.umd.js` file:
 ```js
 var Future = require('data.future')
 ```
-
 
 ### Using with AMD
 
@@ -97,7 +92,6 @@ require(['data.future'], function(Future) {
 })
 ```
 
-
 ### Using without modules
 
 [Download the latest release][release], and load the `data.future.umd.js`
@@ -106,7 +100,6 @@ file. The properties are exposed in the global `Future` object:
 ```html
 <script src="/path/to/data.future.umd.js"></script>
 ```
-
 
 ### Compiling from source
 
@@ -117,11 +110,10 @@ If you want to compile this library from the source, you'll need [Git][],
     $ cd data.future
     $ npm install
     $ make bundle
-    
+
 This will generate the `dist/data.future.umd.js` file, which you can load in
 any JavaScript environment.
 
-    
 ## Documentation
 
 You can [read the documentation online][docs] or build it yourself:
@@ -133,12 +125,10 @@ You can [read the documentation online][docs] or build it yourself:
 
 Then open the file `docs/index.html` in your browser.
 
-
 ## Platform support
 
 This library assumes an ES5 environment, but can be easily supported in ES3
 platforms by the use of shims. Just include [es5-shim][] :)
-
 
 ## Licence
 
@@ -158,4 +148,3 @@ Released under the [MIT licence](https://github.com/folktale/data.future/blob/ma
 <!-- [release: https://github.com/folktale/data.future/releases/download/v$VERSION/data.future-$VERSION.tar.gz] -->
 [release]: https://github.com/folktale/data.future/releases/download/v2.3.0/data.future-2.3.0.tar.gz
 <!-- [/release] -->
-
