@@ -118,21 +118,6 @@ module.exports = spec 'Future' (o, spec) ->
          Future.of(a).rejected-map(k b).is-equal Future.of(a)
        .as-test!
 
-  spec 'memoise(f)' (o) ->
-    o 'Should compute the action at most once' do
-      for-all(AnyF).satisfy (a) ->
-        w = console.warn
-        console.warn = ->
-        p = []
-        f = Future.memoise (reject, resolve) ->
-                              p.push a
-                              resolve a
-        console.warn = w
-        f.map(id).is-equal (Future.of a) and \
-        f.chain(Future.of).is-equal (Future.of a) and \
-        p.length === 1
-      .as-test!
-
   spec 'cleanups' (o) ->
     o 'Actions should be able to clean after themselves.' do
        for-all(Any, Any).satisfy (a, b) ->
