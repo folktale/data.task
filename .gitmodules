@@ -1,0 +1,3 @@
+[submodule "test/benchmarks/node_modules/data.future-new"]
+	path = test/benchmarks/node_modules/data.future-new
+	url = git://github.com/L8D/data.future

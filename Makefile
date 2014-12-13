@@ -33,6 +33,10 @@ clean:
 test:
 	$(lsc) test/tap.ls
 
+benchmark:
+	cd test/benchmarks && npm install
+	node test/benchmarks/runner
+
 package: documentation bundle minify
 	mkdir -p dist/data.future-$(VERSION)
 	cp -r docs dist/data.future-$(VERSION)

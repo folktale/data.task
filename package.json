@@ -24,7 +24,9 @@
   "bugs": {
     "url": "https://github.com/folktale/data.future/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "test.benchmark": "~0.3.0"
+  },
   "devDependencies": {
     "boo": "^2.0.0",
     "pinky": "^0.1.3",
@@ -38,6 +40,8 @@
     "laws": "^0.2.1",
     "ink-docstrap": "git://github.com/robotlolita/docstrap",
     "browserify": "^3.41.0",
-    "jsdoc": "^3.3.0-alpha5"
+    "jsdoc": "^3.3.0-alpha5",
+    "test.benchmark": "~0.3.0",
+    "control.monads": "~0.6.0"
   }
 }
