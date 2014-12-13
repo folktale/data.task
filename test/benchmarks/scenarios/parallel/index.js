@@ -39,7 +39,6 @@ var benchmark = require('test.benchmark');
 var dummy = require('../../dummy');
 var _ = require('../../utils');
 var Future = require('data.future');
-var NewFuture = require('data.future-new');
 
 
 // -- Implementations
@@ -47,7 +46,6 @@ var impl = {
   baseline: require('./callback-baseline'),
   async: require('./callback-async'),
   futures: require('./future')(Future),
-  newFutures: require('./future')(NewFuture),
   bluebird: require('./bluebird')
 }
 
@@ -70,8 +68,6 @@ function allConcurrent() {
       _.runSum(impl.async, tasks, result),
     'Tasks (Data.Future)':
       _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
-    'Tasks (new Data.Future)':
-      _.runSum(impl.newFutures, tasks.map(_.toFuture(NewFuture)), result),
     'Promises/A+ (Bluebird)':
       _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
