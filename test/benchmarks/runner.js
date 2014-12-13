@@ -21,5 +21,6 @@
 
 var benchmark = require('test.benchmark');
 var serial = require('./scenarios/serial');
+var parallel = require('./scenarios/parallel');
 
-benchmark.runWithDefaults(serial);
+benchmark.runWithDefaults(serial.concat(parallel));

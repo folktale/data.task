@@ -6,6 +6,7 @@
     "data.future": "~2.3.0",
     "bluebird": "~2.3.11",
     "control.monads": "~0.6.0",
-    "async": "~0.9.0"
+    "async": "~0.9.0",
+    "control.async": "~0.5.1"
   }
 }

@@ -19,43 +19,48 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function task(delay, v, done) {
-  setTimeout(function(){ done(null, v) }, delay)
+var Bluebird = require('bluebird');
+var Future = require('data.future');
+
+exports.sum = sum;
+function sum(xs) {
+  return xs.reduce(function(a, b){ return a + b }, 0);
 }
 
-exports.lightTask = lightTask;
-function lightTask(v){ return function(done) {
-  setImmediate(function(){ done(null, v) })
+exports.runSum = runSum;
+function runSum(f, xs, result) {
+  return new Future(function(reject, resolve) {
+    f(xs, function(error, data) {
+      if (error) {
+        reject(error);
+      }
+      else if (sum(data) !== result) {
+        reject(new Error('Invalid result: ' + sum(data) + ', expected: ' + result));
+      } else {
+        resolve(data);
+      }
+    });
+  })
+}
+
+exports.toFuture = toFuture;
+function toFuture(F){ return function(f) {
+  return new F(function(reject, resolve) {
+    f(function(error, data) {
+      if (error)  reject(error)
+      else        resolve(data)
+    })
+  })
 }}
 
-exports.heavyTask = heavyTask;
-function heavyTask(v){ return function(done) {
-  return task(10, v, done)
-}}
-
-exports.syncTask = syncTask;
-function syncTask(v){ return function(done) {
-  return done(null, v)
-}}
-
-exports.fail = fail;
-function fail(done) {
-  return done(new Error('intentional failure'))
-}
-
-exports.range = range;
-function range(start, end) {
-  var xs = [];
-  for (var i = start; i < end; ++i)  xs.push(i);
-  return xs;
-}
-
-exports.randomByte = randomByte;
-function randomByte() {
-  return (Math.random() * 255) | 0
-}
-
-exports.randomDistribution = randomDistribution;
-function randomDistribution() {
-  return 0.5 - Math.random()
+exports.toBluebird = toBluebird;
+function toBluebird(f) {
+  return function() {
+    return new Bluebird(function(resolve, reject) {
+      f(function(error, data) {
+        if (error)  reject(error)
+        else        resolve(data)
+      })
+    })
+  }
 }

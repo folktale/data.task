@@ -19,43 +19,23 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-function task(delay, v, done) {
-  setTimeout(function(){ done(null, v) }, delay)
+var Promise = require('bluebird');
+
+function force(f) {
+  return f();
 }
 
-exports.lightTask = lightTask;
-function lightTask(v){ return function(done) {
-  setImmediate(function(){ done(null, v) })
-}}
-
-exports.heavyTask = heavyTask;
-function heavyTask(v){ return function(done) {
-  return task(10, v, done)
-}}
-
-exports.syncTask = syncTask;
-function syncTask(v){ return function(done) {
-  return done(null, v)
-}}
-
-exports.fail = fail;
-function fail(done) {
-  return done(new Error('intentional failure'))
+function parallel(tasks) {
+  return Promise.map(tasks, force);
 }
 
-exports.range = range;
-function range(start, end) {
-  var xs = [];
-  for (var i = start; i < end; ++i)  xs.push(i);
-  return xs;
-}
-
-exports.randomByte = randomByte;
-function randomByte() {
-  return (Math.random() * 255) | 0
-}
-
-exports.randomDistribution = randomDistribution;
-function randomDistribution() {
-  return 0.5 - Math.random()
+module.exports = function(tasks, done) {
+  parallel(tasks).then(
+    function(data) {
+      done(null, data)
+    },
+    function(error) {
+      done(error)
+    }
+  )
 }

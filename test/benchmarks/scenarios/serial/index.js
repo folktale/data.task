@@ -40,13 +40,10 @@
 
 var benchmark = require('test.benchmark');
 var dummy = require('../../dummy');
+var _ = require('../../utils');
 var Future = require('data.future');
 var NewFuture = require('data.future-new');
-var Bluebird = require('bluebird');
 
-function sum(xs) {
-  return xs.reduce(function(a, b){ return a + b }, 0);
-}
 
 // -- Implementations
 var impl = {
@@ -57,43 +54,6 @@ var impl = {
   bluebird: require('./bluebird')
 }
 
-// -- Helpers
-function run(f, xs, result) {
-  return new Future(function(reject, resolve) {
-    f(xs, function(error, data) {
-      if (error) {
-        reject(error);
-      }
-      else if (sum(data) !== result) {
-        reject(new Error('Invalid result: ' + sum(data) + ', expected: ' + result));
-      } else {
-        resolve(data);
-      }
-    });
-  })
-}
-
-
-function toFuture(F){ return function(f) {
-  return new F(function(reject, resolve) {
-    f(function(error, data) {
-      if (error)  reject(error)
-      else        resolve(data)
-    })
-  })
-}}
-
-function toBluebird(f) {
-  return function() {
-    return new Bluebird(function(resolve, reject) {
-      f(function(error, data) {
-        if (error)  reject(error)
-        else        resolve(data)
-      })
-    })
-  }
-}
-
 // -- Benchmarks
 
 // So, since this benchmarks only tests sequencing of asynchronous actions, the
@@ -102,15 +62,15 @@ function toBluebird(f) {
 // concurrency primitive that gets slapped on top of Node's blessed CPS APIs.
 function light() {
   var data = dummy.range(0, 10).map(dummy.randomByte);
-  var result = sum(data);
+  var result = _.sum(data);
   var tasks = data.map(dummy.lightTask);
   
   return {
-    'Callbacks (baseline)': run(impl.baseline, tasks, result),
-    'Callbacks (Async)': run(impl.async, tasks, result),
-    'Tasks (Data.Future)': run(impl.futures, tasks.map(toFuture(Future)), result),
-    'Tasks (new Data.Future)': run(impl.newFutures, tasks.map(toFuture(NewFuture)), result),
-    'Promises/A+ (Bluebird)': run(impl.bluebird, tasks.map(toBluebird), result)
+    'Callbacks (baseline)': _.runSum(impl.baseline, tasks, result),
+    'Callbacks (Async)': _.runSum(impl.async, tasks, result),
+    'Tasks (Data.Future)': _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Tasks (new Data.Future)': _.runSum(impl.newFutures, tasks.map(_.toFuture(NewFuture)), result),
+    'Promises/A+ (Bluebird)': _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
 }
 
@@ -123,17 +83,17 @@ function light() {
 function lightMixed() {
   var bytesA = dummy.range(0, 10).map(dummy.randomByte);
   var bytesB = dummy.range(0, 30).map(dummy.randomByte);
-  var result = sum(bytesA.concat(bytesB));
+  var result = _.sum(bytesA.concat(bytesB));
   var actions = bytesA.map(dummy.lightTask);
   var noise = bytesB.map(dummy.syncTask);
   var tasks = actions.concat(noise).sort(dummy.randomDistribution);
   
   return {
-    'Callbacks (baseline)': run(impl.baseline, tasks, result),
-    'Callbacks (Async)': run(impl.async, tasks, result),
-    'Tasks (Data.Future)': run(impl.futures, tasks.map(toFuture(Future)), result),
-    'Tasks (new Data.Future)': run(impl.newFutures, tasks.map(toFuture(NewFuture)), result),
-    'Promises/A+ (Bluebird)': run(impl.bluebird, tasks.map(toBluebird), result)
+    'Callbacks (baseline)': _.runSum(impl.baseline, tasks, result),
+    'Callbacks (Async)': _.runSum(impl.async, tasks, result),
+    'Tasks (Data.Future)': _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Tasks (new Data.Future)': _.runSum(impl.newFutures, tasks.map(_.toFuture(NewFuture)), result),
+    'Promises/A+ (Bluebird)': _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
 }
 
@@ -145,17 +105,18 @@ function lightMixed() {
 // world*, ideally this should be really small.
 function sync() {
   var data = dummy.range(0, 100).map(dummy.randomByte);
-  var result = sum(data);
+  var result = _.sum(data);
   var tasks = data.map(dummy.syncTask);
   
   return {
-    'Callbacks (baseline)': run(impl.baseline, tasks, result),
-    'Callbacks (Async)': run(impl.async, tasks, result),
-    'Tasks (Data.Future)': run(impl.futures, tasks.map(toFuture(Future)), result),
-    'Tasks (new Data.Future)': run(impl.newFutures, tasks.map(toFuture(NewFuture)), result),
-    'Promises/A+ (Bluebird)': run(impl.bluebird, tasks.map(toBluebird), result)
+    'Callbacks (baseline)': _.runSum(impl.baseline, tasks, result),
+    'Callbacks (Async)': _.runSum(impl.async, tasks, result),
+    'Tasks (Data.Future)': _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Tasks (new Data.Future)': _.runSum(impl.newFutures, tasks.map(_.toFuture(NewFuture)), result),
+    'Promises/A+ (Bluebird)': _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
 }
+
 
 module.exports = [
   benchmark.asyncSuite('Serial (light tasks)', light()),
