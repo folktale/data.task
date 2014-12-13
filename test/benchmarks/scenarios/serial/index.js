@@ -64,10 +64,14 @@ function light() {
   var tasks = data.map(dummy.lightTask);
   
   return {
-    'Callbacks (baseline)': _.runSum(impl.baseline, tasks, result),
-    'Callbacks (Async)': _.runSum(impl.async, tasks, result),
-    'Tasks (Data.Future)': _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
-    'Promises/A+ (Bluebird)': _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
+    'Callbacks (baseline)':
+      _.runSum(impl.baseline, tasks, result),
+    'Callbacks (Async)':
+      _.runSum(impl.async, tasks, result),
+    'Tasks (Data.Future)':
+      _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Promises/A+ (Bluebird)':
+      _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
 }
 
@@ -86,10 +90,14 @@ function lightMixed() {
   var tasks = actions.concat(noise).sort(dummy.randomDistribution);
   
   return {
-    'Callbacks (baseline)': _.runSum(impl.baseline, tasks, result),
-    'Callbacks (Async)': _.runSum(impl.async, tasks, result),
-    'Tasks (Data.Future)': _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
-    'Promises/A+ (Bluebird)': _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
+    'Callbacks (baseline)':
+      _.runSum(impl.baseline, tasks, result),
+    'Callbacks (Async)':
+      _.runSum(impl.async, tasks, result),
+    'Tasks (Data.Future)':
+      _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Promises/A+ (Bluebird)':
+      _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
 }
 
@@ -105,10 +113,14 @@ function sync() {
   var tasks = data.map(dummy.syncTask);
   
   return {
-    'Callbacks (baseline)': _.runSum(impl.baseline, tasks, result),
-    'Callbacks (Async)': _.runSum(impl.async, tasks, result),
-    'Tasks (Data.Future)': _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
-    'Promises/A+ (Bluebird)': _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
+    'Callbacks (baseline)':
+      _.runSum(impl.baseline, tasks, result),
+    'Callbacks (Async)':
+      _.runSum(impl.async, tasks, result),
+    'Tasks (Data.Future)':
+      _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Promises/A+ (Bluebird)':
+      _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
 }
 
