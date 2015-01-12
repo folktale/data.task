@@ -1,7 +1,7 @@
 Data.Task
 =========
 
-[![Build status](https://img.shields.io/travis/folktale/data.task/master.svg?style=flat--squared)](https://travis-ci.org/folktale/data.task)[![NPM version](https://img.shields.io/npm/v/data.task.svg?style=flat--squared)](https://npmjs.org/package/data.task)[![Dependencies status](https://img.shields.io/david/folktale/data.task.svg?style=flat--squared)](https://david-dm.org/folktale/data.task)![Licence](https://img.shields.io/npm/l/data.task.svg?style=flat--squared&label=licence)![Stable API](https://img.shields.io/badge/API_stability-stable-green.svg?style=flat--squared)
+[![Build status](https://img.shields.io/travis/folktale/data.task/master.svg?style=flat-square)](https://travis-ci.org/folktale/data.task)[![NPM version](https://img.shields.io/npm/v/data.task.svg?style=flat-square)](https://npmjs.org/package/data.task)[![Dependencies status](https://img.shields.io/david/folktale/data.task.svg?style=flat-square)](https://david-dm.org/folktale/data.task)![Licence](https://img.shields.io/npm/l/data.task.svg?style=flat-square&label=licence)![Stable API](https://img.shields.io/badge/API_stability-stable-green.svg?style=flat-square)
 
 The `Task(a, b)` structure represents values that depend on time. This allows one
 to model time-based effects explicitly, such that one can have full knowledge
