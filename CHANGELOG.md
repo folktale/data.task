@@ -1,3 +1,35 @@
+## From 2.0.0 to 3.0.0
+
+ -  Renamed to ``Task`` (makes more sense, since now they represent actions).
+
+ -  **BREAKING:** Removed ``Future.memoise``.
+
+ -  Major performance improvements.
+
+ -  **BREAKING:** Fixed resource management introduced in 2.x.
+
+ 
+## 2.3.0
+
+ -  Allows actions to be cancelled.
+
+ - Adds ``Future.rejected``.
+
+ - Adds a catamorphism that takes an object.
+
+ - Deprecates ``Future.memoise``.
+
+
+## 2.2.0
+
+ -  Semigroup instance for nondeterministic combination.
+
+
+## 2.1.0
+
+ -  **BREAKING:** Removes Applicative instance.
+
+
 ## From 1.0.0 to 2.0.0
 
  -  **BREAKING:** removed partial functions and fields (`toString`, `isEqual`,
