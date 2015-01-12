@@ -1,12 +1,9 @@
-Data.Future
-===========
+Data.Task
+=========
 
-[![Build Status](https://secure.travis-ci.org/folktale/data.future.png?branch=master)](https://travis-ci.org/folktale/data.future)
-[![NPM version](https://badge.fury.io/js/data.future.png)](http://badge.fury.io/js/data.future)
-[![Dependencies Status](https://david-dm.org/folktale/data.future.png)](https://david-dm.org/folktale/data.future)
-[![stable](http://hughsk.github.io/stability-badges/dist/stable.svg)](http://github.com/hughsk/stability-badges)
+[![Build status](https://img.shields.io/travis/origamitower/specify-core/master.svg?style=flat-squared)](https://travis-ci.org/origamitower/specify-core)[![NPM version](https://img.shields.io/npm/v/specify-core.svg?style=flat-squared)](https://npmjs.org/package/specify-core)[![Dependencies status](https://img.shields.io/david/origamitower/specify-core.svg?style=flat-squared)](https://david-dm.org/origamitower/specify-core)![Licence](https://img.shields.io/npm/l/specify-core.svg?style=flat-squared&label=licence)![Stable API](https://img.shields.io/badge/API_stability-stable-green.svg?style=flat-squared)
 
-The `Future(a, b)` structure represents values that depend on time. This allows one
+The `Task(a, b)` structure represents values that depend on time. This allows one
 to model time-based effects explicitly, such that one can have full knowledge
 of when they're dealing with delayed computations, latency, or anything that
 can not be computed immediately.
@@ -19,12 +16,12 @@ monadic operations.
 ## Example
 
 ```js
-var Future = require('data.future')
+var Task = require('data.task')
 var fs = require('fs')
 
-// read : String -> Future(Error, Buffer)
+// read : String -> Task(Error, Buffer)
 function read(path) {
-  return new Future(function(reject, resolve) {
+  return new Task(function(reject, resolve) {
     fs.readFile(path, function(error, data) {
       if (error)  reject(error)
       else        resolve(data)
@@ -32,7 +29,7 @@ function read(path) {
   })
 }
 
-// decode : Future(Error, Buffer) -> Future(Error, String)
+// decode : Task(Error, Buffer) -> Task(Error, String)
 function decode(buffer) {
   return buffer.map(function(a) {
     return a.toString('utf-8')
@@ -44,16 +41,16 @@ var outro = decode(read('outro.txt'))
 
 // You can use `.chain` to sequence two asynchronous actions, and
 // `.map` to perform a synchronous computation with the eventual
-// value of the Future.
+// value of the Task.
 var concatenated = intro.chain(function(a) {
                      return outro.map(function(b) {
                        return a + b
                      })
                    })
 
-// But the implementation of Future is pure, which means that you'll
+// But the implementation of Task is pure, which means that you'll
 // never observe the effects by using `chain` or `map` or any other
-// method. The Future just records the sequence of actions that you
+// method. The Task just records the sequence of actions that you
 // wish to observe, and defers the playing of that sequence of actions
 // for your application's entry-point to call.
 //
@@ -70,35 +67,35 @@ concatenated.fork(
 The easiest way is to grab it from NPM. If you're running in a Browser
 environment, you can use [Browserify][]
 
-    $ npm install data.future
+    $ npm install data.task
 
 ### Using with CommonJS
 
 If you're not using NPM, [Download the latest release][release], and require
-the `data.future.umd.js` file:
+the `data.task.umd.js` file:
 
 ```js
-var Future = require('data.future')
+var Task = require('data.task')
 ```
 
 ### Using with AMD
 
-[Download the latest release][release], and require the `data.future.umd.js`
+[Download the latest release][release], and require the `data.task.umd.js`
 file:
 
 ```js
-require(['data.future'], function(Future) {
+require(['data.task'], function(Task) {
   ( ... )
 })
 ```
 
 ### Using without modules
 
-[Download the latest release][release], and load the `data.future.umd.js`
-file. The properties are exposed in the global `Future` object:
+[Download the latest release][release], and load the `data.task.umd.js`
+file. The properties are exposed in the global `Task` object:
 
 ```html
-<script src="/path/to/data.future.umd.js"></script>
+<script src="/path/to/data.task.umd.js"></script>
 ```
 
 ### Compiling from source
@@ -106,24 +103,13 @@ file. The properties are exposed in the global `Future` object:
 If you want to compile this library from the source, you'll need [Git][],
 [Make][], [Node.js][], and run the following commands:
 
-    $ git clone git://github.com/folktale/data.future.git
-    $ cd data.future
+    $ git clone git://github.com/folktale/data.task.git
+    $ cd data.task
     $ npm install
     $ make bundle
 
-This will generate the `dist/data.future.umd.js` file, which you can load in
+This will generate the `dist/data.task.umd.js` file, which you can load in
 any JavaScript environment.
-
-## Documentation
-
-You can [read the documentation online][docs] or build it yourself:
-
-    $ git clone git://github.com/folktale/monads.maybe.git
-    $ cd monads.maybe
-    $ npm install
-    $ make documentation
-
-Then open the file `docs/index.html` in your browser.
 
 ## Platform support
 
@@ -132,9 +118,9 @@ platforms by the use of shims. Just include [es5-shim][] :)
 
 ## Licence
 
-Copyright (c) 2013-2014 Quildreen Motta.
+Copyright (c) 2013-2015 Quildreen Motta.
 
-Released under the [MIT licence](https://github.com/folktale/data.future/blob/master/LICENCE).
+Released under the [MIT licence](https://github.com/folktale/data.task/blob/master/LICENCE).
 
 <!-- links -->
 [Fantasy Land]: https://github.com/fantasyland/fantasy-land
@@ -143,8 +129,8 @@ Released under the [MIT licence](https://github.com/folktale/data.future/blob/ma
 [Make]: http://www.gnu.org/software/make/
 [Node.js]: http://nodejs.org/
 [es5-shim]: https://github.com/kriskowal/es5-shim
-[docs]: http://folktale.github.io/data.future
+[docs]: http://folktale.github.io/data.task
 [CPS]: http://matt.might.net/articles/by-example-continuation-passing-style/
-<!-- [release: https://github.com/folktale/data.future/releases/download/v$VERSION/data.future-$VERSION.tar.gz] -->
-[release]: https://github.com/folktale/data.future/releases/download/v2.3.0/data.future-2.3.0.tar.gz
+<!-- [release: https://github.com/folktale/data.task/releases/download/v$VERSION/data.task-$VERSION.tar.gz] -->
+[release]: https://github.com/folktale/data.task/releases/download/v2.3.0/data.task-2.3.0.tar.gz
 <!-- [/release] -->
