@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/folktale/data.Task"
+    "url": "https://github.com/folktale/data.task"
   },
   "keywords": [
     "fantasy-land",
@@ -24,7 +24,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/folktale/data.Task/issues"
+    "url": "https://github.com/folktale/data.task/issues"
   },
   "dependencies": {
     "test.benchmark": "~0.3.0"
