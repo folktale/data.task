@@ -19,38 +19,17 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var Bluebird = require('bluebird');
+var sequence = require('control.monads').sequence;
 var Task = require('data.Task');
 
-exports.sum = sum;
-function sum(xs) {
-  return xs.reduce(function(a, b){ return a + b }, 0);
-}
-
-exports.runSum = runSum;
-function runSum(f, xs, result) {
-  return new Task(function(reject, resolve) {
-    f(xs, function(error, data) {
-      if (error) {
-        reject(error);
+module.exports = function(Task) {
+  return function(tasks, done) {
+    sequence(Task, tasks).fork(
+      function(error) {
+        done(error)
+      }, function(data) {
+        done(null, data)
       }
-      else if (sum(data) !== result) {
-        reject(new Error('Invalid result: ' + sum(data) + ', expected: ' + result));
-      } else {
-        resolve(data);
-      }
-    });
-  })
+    )
+  }
 }
-
-exports.toTask = toTask;
-function toTask(F){ return function(f) {
-  return new F(function(reject, resolve) {
-    f(function(error, data) {
-      if (error)  reject(error)
-      else        resolve(data)
-    })
-  })
-}}
-
-exports.toBluebird = Bluebird.promisify;
