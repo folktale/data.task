@@ -41,7 +41,7 @@
 var benchmark = require('test.benchmark');
 var dummy = require('../../dummy');
 var _ = require('../../utils');
-var Task = require('data.Task');
+var Task = require('data.task');
 
 
 // -- Implementations

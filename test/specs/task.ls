@@ -24,7 +24,7 @@
  */
 
 spec = (require 'hifive')!
-Task = require '../eq-Task'
+Task = require '../eq-task'
 {for-all, data: {Any:BigAny, Int}, sized, choice, transform} = require 'claire'
 {ok, throws, equal} = require 'assert'
 
@@ -37,7 +37,7 @@ rejected = Task.rejected
 
 module.exports = spec 'Task' (o, spec) ->
 
-  o 'rejected(a) should create a rejected Task.' do
+  o 'rejected(a) should create a rejected task.' do
      for-all(Any).satisfy (a) ->
        (rejected a).is-equal (new Task (f, _) -> f a)
      .as-test!
@@ -73,21 +73,21 @@ module.exports = spec 'Task' (o, spec) ->
        .as-test!
 
   spec 'fold(f,g)' (o) ->
-    o 'Should return a resolved Task mapped by f if rejected.' do
+    o 'Should return a resolved task mapped by f if rejected.' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
          (rejected a).fold(((x) -> [x, b]), ((x) -> [x, c])).is-equal Task.of([a, b])
        .as-test!
-    o 'Should return a resolved Task mapped by g if resolved.' do
+    o 'Should return a resolved task mapped by g if resolved.' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
          Task.of(a).fold(((x) -> [x, b]), ((x) -> [x, c])).is-equal Task.of([a, c])
        .as-test!
 
   spec 'cata(p)' (o) ->
-    o 'Should return a resolved Task mapped by p.Rejected if rejected.' do
+    o 'Should return a resolved task mapped by p.Rejected if rejected.' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
          (rejected a).cata(Rejected: ((x) -> [x, b]), Resolved: ((x) -> [x, c])).is-equal Task.of([a, b])
        .as-test!
-    o 'Should return a resolved Task mapped by p.Resolved if resolved.' do
+    o 'Should return a resolved task mapped by p.Resolved if resolved.' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
          Task.of(a).cata(Rejected: ((x) -> [x, b]), Resolved: ((x) -> [x, c])).is-equal Task.of([a, c])
        .as-test!
@@ -99,7 +99,7 @@ module.exports = spec 'Task' (o, spec) ->
      .as-test!
 
   spec 'bimap(f, g)' (o) ->
-    o 'For rejected tasks should return a new rejected Task mapped by f' do
+    o 'For rejected tasks should return a new rejected task mapped by f' do
        for-all(AnyF, AnyF, AnyF).satisfy (a, b, c) ->
          (rejected a).bimap(k b; k c).is-equal (rejected b)
        .as-test!
@@ -109,7 +109,7 @@ module.exports = spec 'Task' (o, spec) ->
        .as-test!
 
   spec 'rejected-map(f)' (o) ->
-    o 'For rejected tasks should return a new rejected Task mapped by f' do
+    o 'For rejected tasks should return a new rejected task mapped by f' do
        for-all(AnyF, AnyF).satisfy (a, b) ->
          (rejected a).rejected-map(k b).is-equal (rejected b)
        .as-test!
