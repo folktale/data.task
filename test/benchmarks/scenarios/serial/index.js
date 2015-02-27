@@ -41,14 +41,14 @@
 var benchmark = require('test.benchmark');
 var dummy = require('../../dummy');
 var _ = require('../../utils');
-var Future = require('data.future');
+var Task = require('data.task');
 
 
 // -- Implementations
 var impl = {
   baseline: require('./callback-baseline'),
   async: require('./callback-async'),
-  futures: require('./data.future.js')(Future),
+  tasks: require('./data.task.js')(Task),
   bluebird: require('./bluebird')
 }
 
@@ -68,8 +68,8 @@ function light() {
       _.runSum(impl.baseline, tasks, result),
     'Callbacks (Async)':
       _.runSum(impl.async, tasks, result),
-    'Tasks (Data.Future)':
-      _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Tasks (Data.Task)':
+      _.runSum(impl.tasks, tasks.map(_.toTask(Task)), result),
     'Promises/A+ (Bluebird)':
       _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
@@ -94,8 +94,8 @@ function lightMixed() {
       _.runSum(impl.baseline, tasks, result),
     'Callbacks (Async)':
       _.runSum(impl.async, tasks, result),
-    'Tasks (Data.Future)':
-      _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Tasks (Data.Task)':
+      _.runSum(impl.tasks, tasks.map(_.toTask(Task)), result),
     'Promises/A+ (Bluebird)':
       _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }
@@ -117,8 +117,8 @@ function sync() {
       _.runSum(impl.baseline, tasks, result),
     'Callbacks (Async)':
       _.runSum(impl.async, tasks, result),
-    'Tasks (Data.Future)':
-      _.runSum(impl.futures, tasks.map(_.toFuture(Future)), result),
+    'Tasks (Data.Task)':
+      _.runSum(impl.tasks, tasks.map(_.toTask(Task)), result),
     'Promises/A+ (Bluebird)':
       _.runSum(impl.bluebird, tasks.map(_.toBluebird), result)
   }

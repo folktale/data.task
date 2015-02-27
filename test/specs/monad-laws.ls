@@ -28,14 +28,14 @@
 # to verify.
 spec = (require 'hifive')!
 laws = require 'laws'
-Future = require '../eq-future'
+Task = require '../eq-Task'
 
 # And to use the laws, we need to provide a constructor function, that
 # given a single argument will return a new data structure containing
 # that argument. We also make sure that the constructor for our
 # semigroup implementation lifts the value into a non empty list, so we
 # can concatenate the values.
-make = Future.of
+make = Task.of
 
 # Then we provide the specification for the test runner. As we're using
 # Hifive here, it expects that each definition for the specification to
