@@ -1,5 +1,5 @@
 {
-  "name": "data.future",
+  "name": "data.Task",
   "version": "2.3.0",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/folktale/data.future"
+    "url": "https://github.com/folktale/data.Task"
   },
   "keywords": [
     "fantasy-land",
@@ -16,13 +16,15 @@
     "monads",
     "algebraic",
     "promises",
-    "futures",
+    "Tasks",
     "asynchronous"
   ],
-  "author": "Quildreen Motta",
+  "author": {
+    "name": "Quildreen Motta"
+  },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/folktale/data.future/issues"
+    "url": "https://github.com/folktale/data.Task/issues"
   },
   "dependencies": {
     "test.benchmark": "~0.3.0"
@@ -43,5 +45,14 @@
     "jsdoc": "^3.3.0-alpha5",
     "test.benchmark": "~0.3.0",
     "control.monads": "~0.6.0"
-  }
+  },
+  "gitHead": "43db1bfc2e6f75ee6f59c13260c650acfa4f3b22",
+  "readme": "Data.Task\r\n=========\r\n\r\n[![Build status](https://img.shields.io/travis/folktale/data.task/master.svg?style=flat-square)](https://travis-ci.org/folktale/data.task)[![NPM version](https://img.shields.io/npm/v/data.task.svg?style=flat-square)](https://npmjs.org/package/data.task)[![Dependencies status](https://img.shields.io/david/folktale/data.task.svg?style=flat-square)](https://david-dm.org/folktale/data.task)![Licence](https://img.shields.io/npm/l/data.task.svg?style=flat-square&label=licence)![Stable API](https://img.shields.io/badge/API_stability-stable-green.svg?style=flat-square)\r\n\r\nThe `Task(a, b)` structure represents values that depend on time. This allows one\r\nto model time-based effects explicitly, such that one can have full knowledge\r\nof when they're dealing with delayed computations, latency, or anything that\r\ncan not be computed immediately.\r\n\r\nA common use for this monad is to replace the usual\r\n[Continuation-Passing Style][CPS] form of programming, in order to be able to\r\ncompose and sequence time-dependent effects using the generic and powerful\r\nmonadic operations.\r\n\r\n## Example\r\n\r\n```js\r\nvar Task = require('data.task')\r\nvar fs = require('fs')\r\n\r\n// read : String -> Task(Error, Buffer)\r\nfunction read(path) {\r\n  return new Task(function(reject, resolve) {\r\n    fs.readFile(path, function(error, data) {\r\n      if (error)  reject(error)\r\n      else        resolve(data)\r\n    })\r\n  })\r\n}\r\n\r\n// decode : Task(Error, Buffer) -> Task(Error, String)\r\nfunction decode(buffer) {\r\n  return buffer.map(function(a) {\r\n    return a.toString('utf-8')\r\n  })\r\n}\r\n\r\nvar intro = decode(read('intro.txt'))\r\nvar outro = decode(read('outro.txt'))\r\n\r\n// You can use `.chain` to sequence two asynchronous actions, and\r\n// `.map` to perform a synchronous computation with the eventual\r\n// value of the Task.\r\nvar concatenated = intro.chain(function(a) {\r\n                     return outro.map(function(b) {\r\n                       return a + b\r\n                     })\r\n                   })\r\n\r\n// But the implementation of Task is pure, which means that you'll\r\n// never observe the effects by using `chain` or `map` or any other\r\n// method. The Task just records the sequence of actions that you\r\n// wish to observe, and defers the playing of that sequence of actions\r\n// for your application's entry-point to call.\r\n//\r\n// To observe the effects, you have to call the `fork` method, which\r\n// takes a callback for the rejection, and a callback for the success.\r\nconcatenated.fork(\r\n  function(error) { throw error }\r\n, function(data)  { console.log(data) }\r\n)\r\n```\r\n\r\n## Installing\r\n\r\nThe easiest way is to grab it from NPM. If you're running in a Browser\r\nenvironment, you can use [Browserify][]\r\n\r\n    $ npm install data.task\r\n\r\n### Using with CommonJS\r\n\r\nIf you're not using NPM, [Download the latest release][release], and require\r\nthe `data.task.umd.js` file:\r\n\r\n```js\r\nvar Task = require('data.task')\r\n```\r\n\r\n### Using with AMD\r\n\r\n[Download the latest release][release], and require the `data.task.umd.js`\r\nfile:\r\n\r\n```js\r\nrequire(['data.task'], function(Task) {\r\n  ( ... )\r\n})\r\n```\r\n\r\n### Using without modules\r\n\r\n[Download the latest release][release], and load the `data.task.umd.js`\r\nfile. The properties are exposed in the global `Task` object:\r\n\r\n```html\r\n<script src=\"/path/to/data.task.umd.js\"></script>\r\n```\r\n\r\n### Compiling from source\r\n\r\nIf you want to compile this library from the source, you'll need [Git][],\r\n[Make][], [Node.js][], and run the following commands:\r\n\r\n    $ git clone git://github.com/folktale/data.task.git\r\n    $ cd data.task\r\n    $ npm install\r\n    $ make bundle\r\n\r\nThis will generate the `dist/data.task.umd.js` file, which you can load in\r\nany JavaScript environment.\r\n\r\n## Platform support\r\n\r\nThis library assumes an ES5 environment, but can be easily supported in ES3\r\nplatforms by the use of shims. Just include [es5-shim][] :)\r\n\r\n## Licence\r\n\r\nCopyright (c) 2013-2015 Quildreen Motta.\r\n\r\nReleased under the [MIT licence](https://github.com/folktale/data.task/blob/master/LICENCE).\r\n\r\n<!-- links -->\r\n[Fantasy Land]: https://github.com/fantasyland/fantasy-land\r\n[Browserify]: http://browserify.org/\r\n[Git]: http://git-scm.com/\r\n[Make]: http://www.gnu.org/software/make/\r\n[Node.js]: http://nodejs.org/\r\n[es5-shim]: https://github.com/kriskowal/es5-shim\r\n[docs]: http://folktale.github.io/data.task\r\n[CPS]: http://matt.might.net/articles/by-example-continuation-passing-style/\r\n<!-- [release: https://github.com/folktale/data.task/releases/download/v$VERSION/data.task-$VERSION.tar.gz] -->\r\n[release]: https://github.com/folktale/data.task/releases/download/v2.3.0/data.task-2.3.0.tar.gz\r\n<!-- [/release] -->\r\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/folktale/data.Task",
+  "_id": "data.Task@2.3.0",
+  "_shasum": "6dde691978ac83bc61138e58a5ed69645094356f",
+  "_from": "git://github.com/folktale/data.task",
+  "_resolved": "git://github.com/folktale/data.task#43db1bfc2e6f75ee6f59c13260c650acfa4f3b22",
+  "_fromGithub": true
 }

@@ -8,16 +8,16 @@ VERSION    = $(shell node -e 'console.log(require("./package.json").version)')
 dist:
 	mkdir -p dist
 
-dist/data.future.umd.js: dist
-	$(browserify) lib/index.js --standalone Future > $@
+dist/data.Task.umd.js: dist
+	$(browserify) lib/index.js --standalone Task > $@
 
-dist/data.future.umd.min.js: dist/data.future.umd.js
+dist/data.Task.umd.min.js: dist/data.Task.umd.js
 	$(uglify) --mangle - < $^ > $@
 
 # ----------------------------------------------------------------------
-bundle: dist/data.future.umd.js
+bundle: dist/data.Task.umd.js
 
-minify: dist/data.future.umd.min.js
+minify: dist/data.Task.umd.min.js
 
 documentation:
 	$(jsdoc) --configure jsdoc.conf.json
@@ -37,14 +37,14 @@ benchmark:
 	node test/benchmarks/runner
 
 package: documentation bundle minify
-	mkdir -p dist/data.future-$(VERSION)
-	cp -r docs dist/data.future-$(VERSION)
-	cp -r lib dist/data.future-$(VERSION)
-	cp dist/*.js dist/data.future-$(VERSION)
-	cp package.json dist/data.future-$(VERSION)
-	cp README.md dist/data.future-$(VERSION)
-	cp LICENCE dist/data.future-$(VERSION)
-	cd dist && tar -czf data.future-$(VERSION).tar.gz data.future-$(VERSION)
+	mkdir -p dist/data.Task-$(VERSION)
+	cp -r docs dist/data.Task-$(VERSION)
+	cp -r lib dist/data.Task-$(VERSION)
+	cp dist/*.js dist/data.Task-$(VERSION)
+	cp package.json dist/data.Task-$(VERSION)
+	cp README.md dist/data.Task-$(VERSION)
+	cp LICENCE dist/data.Task-$(VERSION)
+	cd dist && tar -czf data.Task-$(VERSION).tar.gz data.Task-$(VERSION)
 
 publish: clean
 	npm install

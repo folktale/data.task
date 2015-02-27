@@ -11,7 +11,7 @@
 		"template": "./node_modules/ink-docstrap/template"
 	},
 	"templates": {
-		"systemName": "Data.Future",
+		"systemName": "Data.Task",
 		"theme": "cerulean",
 		"linenums": true,
 		"navType": "vertical",

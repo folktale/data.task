@@ -19,38 +19,19 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var Bluebird = require('bluebird');
-var Task = require('data.Task');
+var Async = require('control.async');
 
-exports.sum = sum;
-function sum(xs) {
-  return xs.reduce(function(a, b){ return a + b }, 0);
-}
+module.exports = function(Task) {
+  var parallel = Async(Task).parallel;
 
-exports.runSum = runSum;
-function runSum(f, xs, result) {
-  return new Task(function(reject, resolve) {
-    f(xs, function(error, data) {
-      if (error) {
-        reject(error);
+  return function(tasks, done) {
+    parallel(tasks).fork(
+      function(error) {
+        done(error);
+      },
+      function(data) {
+        done(null, data);
       }
-      else if (sum(data) !== result) {
-        reject(new Error('Invalid result: ' + sum(data) + ', expected: ' + result));
-      } else {
-        resolve(data);
-      }
-    });
-  })
+    );
+  };
 }
-
-exports.toTask = toTask;
-function toTask(F){ return function(f) {
-  return new F(function(reject, resolve) {
-    f(function(error, data) {
-      if (error)  reject(error)
-      else        resolve(data)
-    })
-  })
-}}
-
-exports.toBluebird = Bluebird.promisify;
