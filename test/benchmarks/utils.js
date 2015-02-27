@@ -53,14 +53,4 @@ function toFuture(F){ return function(f) {
   })
 }}
 
-exports.toBluebird = toBluebird;
-function toBluebird(f) {
-  return function() {
-    return new Bluebird(function(resolve, reject) {
-      f(function(error, data) {
-        if (error)  reject(error)
-        else        resolve(data)
-      })
-    })
-  }
-}
+exports.toBluebird = Bluebird.promisify;

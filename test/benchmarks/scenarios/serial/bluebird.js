@@ -21,24 +21,10 @@
 
 var Promise = require('bluebird');
 
-function sequence(tasks) {
-  return tasks.reduce(function(results, f) {
-    return results.then(function(xs) {
-      return f().then(function(v) {
-        xs.push(v);
-        return xs
-      })
-    })
-  }, Promise.resolve([]))
+function force(f) {
+  return f();
 }
 
 module.exports = function(tasks, done) {
-  sequence(tasks).then(
-    function(data){
-      done(null, data)
-    },
-    function(error) {
-      done(error)
-    }
-  )
+  Promise.map(tasks, force, { concurrency: 1 }).nodeify(done);
 }

@@ -25,17 +25,6 @@ function force(f) {
   return f();
 }
 
-function parallel(tasks) {
-  return Promise.map(tasks, force);
-}
-
 module.exports = function(tasks, done) {
-  parallel(tasks).then(
-    function(data) {
-      done(null, data)
-    },
-    function(error) {
-      done(error)
-    }
-  )
+  Promise.map(tasks, force).nodeify(done);
 }
