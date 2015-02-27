@@ -1,6 +1,6 @@
 {
-  "name": "data.Task",
-  "version": "2.3.0",
+  "name": "data.task",
+  "version": "3.0.5",
   "description": "A monad for time-dependant values, providing explicit effects for delayed computations, latency, etc.",
   "main": "lib/index.js",
   "scripts": {
