@@ -1,5 +1,3 @@
-# # Entry point for the specifications
-
 /** ^
  * Copyright (c) 2013-2014 Quildreen Motta
  *
@@ -23,9 +21,26 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-module.exports = [
-  # The specification objects go here
-  # See: http://hifivejs.github.io/hifive/getting-started.html
-  require './monad-laws'
-  require './task'
-]
+Task = require '../lib/'
+
+# #### Function: is-equal
+#
+# Tests if an Task monad is equal to another Task monad.
+#
+# Equality with pending tasks is only decidable if the computation
+# of both tasks can be resolved synchronously. Otherwise this
+# function will return false.
+#
+# **WARNING:** this is a partial function, it'll only work for
+# tasks representing synchronous actions.
+#
+# + type: (@Task(a, b)) => Task(a, b) -> Boolean
+Task::is-equal = (a) -> @fork do
+                                 * (e) -> a.fork do
+                                                 * (e2) -> e === e2
+                                                 * (_)  -> false
+                                 * (s) -> a.fork do
+                                                 * (_)  -> false
+                                                 * (s2) -> s === s2
+
+module.exports = Task
