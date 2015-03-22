@@ -129,8 +129,8 @@ Released under the [MIT licence](https://github.com/folktale/data.task/blob/mast
 [Make]: http://www.gnu.org/software/make/
 [Node.js]: http://nodejs.org/
 [es5-shim]: https://github.com/kriskowal/es5-shim
-[docs]: http://folktale.github.io/data.task
+[docs]: http://docs.folktalejs.org/en/latest/api/data/task/index.html
 [CPS]: http://matt.might.net/articles/by-example-continuation-passing-style/
 <!-- [release: https://github.com/folktale/data.task/releases/download/v$VERSION/data.task-$VERSION.tar.gz] -->
-[release]: https://github.com/folktale/data.task/releases/download/v2.3.0/data.task-2.3.0.tar.gz
+[release]: https://github.com/folktale/data.task/releases/download/v3.0.0/data.task-3.0.0.tar.gz
 <!-- [/release] -->
