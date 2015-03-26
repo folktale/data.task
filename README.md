@@ -111,6 +111,15 @@ If you want to compile this library from the source, you'll need [Git][],
 This will generate the `dist/data.task.umd.js` file, which you can load in
 any JavaScript environment.
 
+## Documentation
+
+You can [read the documentation online][docs] or build it yourself:
+
+    $ git clone git://github.com/folktale/data.task.git
+    $ cd data.task
+    $ npm install
+    $ make documentation
+
 ## Platform support
 
 This library assumes an ES5 environment, but can be easily supported in ES3
