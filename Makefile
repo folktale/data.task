@@ -11,7 +11,7 @@ dist:
 dist/data.task.umd.js: dist
 	$(browserify) lib/index.js --standalone Task > $@
 
-dist/data.future.umd.min.js: dist/data.task.umd.js
+dist/data.task.umd.min.js: dist/data.task.umd.js
 	$(uglify) --mangle - < $^ > $@
 
 # ----------------------------------------------------------------------
