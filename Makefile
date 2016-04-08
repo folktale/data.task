@@ -3,6 +3,7 @@ lsc        = $(bin)/lsc
 browserify = $(bin)/browserify
 jsdoc      = $(bin)/jsdoc
 uglify     = $(bin)/uglifyjs
+tape       = $(bin)/tape
 VERSION    = $(shell node -e 'console.log(require("./package.json").version)')
 
 dist:
@@ -30,7 +31,7 @@ clean:
 	rm -rf dist build
 
 test:
-	
+	$(tape) test/*.js
 
 benchmark:
 	cd test/benchmarks && npm install
