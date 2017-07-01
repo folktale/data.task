@@ -30,9 +30,9 @@ function read(path) {
 }
 
 // decode : Task(Error, Buffer) -> Task(Error, String)
-function decode(buffer) {
-  return buffer.map(function(a) {
-    return a.toString('utf-8')
+function decode(task) {
+  return task.map(function(buffer) {
+    return buffer.toString('utf-8')
   })
 }
 
