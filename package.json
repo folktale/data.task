@@ -1,6 +1,6 @@
 {
   "name": "data.task",
-  "version": "3.1.0",
+  "version": "3.1.2",
   "description": "A structure for representing asynchronous actions with automatic resource handling.",
   "main": "lib/index.js",
   "scripts": {
